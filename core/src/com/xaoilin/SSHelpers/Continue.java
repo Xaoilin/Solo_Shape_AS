@@ -23,19 +23,50 @@ public class Continue {
 		this.myShapes = myShapes;
 	}
 
-	public void drawContinueMenu() {
-		// Draw Essentials
+	public void drawPurchaseMenu() {
+		drawEssentials();
+
+		//Draw Menu
+		helper.drawTexture(GameWorld.gameWidth*0.0925, GameWorld.gameHeight*0.260416, 1.5, AssetLoader.purchaseMenu);
+		helper.drawText("Purchase Coins!", GameWorld.gameWidth*0.2037, GameWorld.gameHeight*0.3225, 5);
+		helper.drawText("BUY", GameWorld.gameWidth*0.18, GameWorld.gameHeight*0.43, 5);
+		helper.drawText("BUY", GameWorld.gameWidth*0.18, GameWorld.gameHeight*0.53, 5);
+		helper.drawText("BUY", GameWorld.gameWidth*0.18, GameWorld.gameHeight*0.63, 5);
+		helper.drawTexture(GameWorld.gameWidth*0.29, GameWorld.gameHeight*0.38, 1, AssetLoader.starCoin);
+		helper.drawTexture(GameWorld.gameWidth*0.29, GameWorld.gameHeight*0.48, 1, AssetLoader.starCoin);
+		helper.drawTexture(GameWorld.gameWidth*0.29, GameWorld.gameHeight*0.58, 1, AssetLoader.starCoin);
+		helper.drawText("200", GameWorld.gameWidth*0.44, GameWorld.gameHeight*0.43, 5);
+		helper.drawText("1000", GameWorld.gameWidth*0.44, GameWorld.gameHeight*0.53, 5);
+		helper.drawText("2000", GameWorld.gameWidth*0.44, GameWorld.gameHeight*0.63, 5);
+	}
+
+	public void drawEssentials(){
 		helper.drawScore();
 		LevelDrawing.drawAllLevels();
-		
-		// Not enough points can't continue
+	}
+
+	public void drawContinueMenu() {
+		drawEssentials();
+
+		// If Not enough points then don't draw the continue menu
 		if (TierOneCheckWin.gameOverMessage.startsWith("Not")) {
 			myWorld.setGameOver();
 			return;
 		}
-
+		//Make the shape you failed on flash red
 		flashRed();
+		//Draw the continue menu
 		drawContinue();
+	}
+
+	public void drawContinue() {
+		if(continueMenuCounter > 150){
+			helper.drawTexture(GameWorld.gameWidth*0.0925, GameWorld.gameHeight*0.260416, 1.5, AssetLoader.continueBackground);
+			helper.drawText("Shapes touched!", GameWorld.gameWidth*0.2037, GameWorld.gameHeight*0.3125, 5);
+			helper.drawText("Continue?", GameWorld.gameWidth*0.23148, GameWorld.gameHeight*0.416, 0);
+			helper.drawTexture(GameWorld.gameWidth*0.37, GameWorld.gameHeight*0.4427083, 1, AssetLoader.starCoin);
+			helper.drawText(""+Memory.getCoins(), GameWorld.gameWidth*0.50925, GameWorld.gameHeight*0.489583, 5);
+		}
 	}
 
 	
@@ -68,7 +99,7 @@ public class Continue {
 		// Find out if it's a polygon or a circle
 		if (continueMenuCounter % 20 == 0 && continueMenuCounter < 200) {
 			if (Shapes.polyShapes[Shapes.currentShapes].area() != 0) {
-				 System.out.println("Area is greater than 0, setting colour to Red");
+//				 System.out.println("Area is greater than 0, setting colour to Red");
 				// Find which polygon is this current shape
 				switch (Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices().length) {
 				case 6: // triangle
@@ -94,7 +125,7 @@ public class Continue {
 			}
 		} else if (continueMenuCounter % 20 == 10 && continueMenuCounter < 100) {
 			if (Shapes.polyShapes[Shapes.currentShapes].area() != 0) {
-				 System.out.println("Area is greater than 0, setting colour to Original");
+//				 System.out.println("Area is greater than 0, setting colour to Original");
 				// Find which polygon is this current shape
 				switch (Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices().length) {
 				case 6: // triangle
@@ -128,15 +159,7 @@ public class Continue {
 
 	}
 
-	public void drawContinue() {
-		if(continueMenuCounter > 150){
-			helper.drawTexture(GameWorld.gameWidth*0.0925, GameWorld.gameHeight*0.260416, 1.5, AssetLoader.continueBackground);
-			helper.drawText("Shapes touched!", GameWorld.gameWidth*0.2037, GameWorld.gameHeight*0.3125, 5);
-			helper.drawText("Continue?", GameWorld.gameWidth*0.23148, GameWorld.gameHeight*0.416, 0);
-			helper.drawTexture(GameWorld.gameWidth*0.37, GameWorld.gameHeight*0.4427083, 1, AssetLoader.starCoin);
-			helper.drawText(""+Memory.getCoins(), GameWorld.gameWidth*0.50925, GameWorld.gameHeight*0.489583, 5);
-		}
-	}
+
 
 	void setScore() {
 		// Set score to previous shape

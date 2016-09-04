@@ -13,11 +13,11 @@ public class AssetLoader {
 
 	public static Texture clockTexture, endGameTexture, playOnTexture, ButtonsTexture, BadgesTexture, logoTexture,
 			ssLogo, whiteCircle, blackCircle, snowflake, noStars, oneStar, twoStars, threeStars, starCoin, blackButton,
-			transparentButton, continueBackgroundTexture;
+			transparentButton, continueBackgroundTexture, purchaseMenuTexture, purchaseBoxTexture;
 
 	public static TextureRegion clock, logo, tier1Badge, tier2Badge, tier3Badge, noStar, yesStar, goldStar, menuButton,
 			retryButton, playButton, muteButton, speakerButton, rightArrow, leftArrow, backButton, levelBox, padlock,
-			scoreboard, noStarTable, yesStarTable, continueBackground, endGameBtn, playOnBtn;
+			scoreboard, noStarTable, yesStarTable, continueBackground, purchaseMenu, purchaseBox, endGameBtn, playOnBtn;
 
 	public static Music soundtrack;
 	public static Sound nextlevel, gameover, starAchieved;
@@ -47,6 +47,11 @@ public class AssetLoader {
 		continueBackgroundTexture = new Texture(Gdx.files.internal("data/ui/continueMenu.png"));
 		continueBackground = new TextureRegion(continueBackgroundTexture, 0, 0, 586, 612);
 		continueBackground.flip(false, true);
+		purchaseMenuTexture = new Texture(Gdx.files.internal("data/ui/purchaseMenu.png"));
+		purchaseMenu = new TextureRegion(purchaseMenuTexture, 0, 0, 586, 612);
+		purchaseMenu.flip(false, true);
+		purchaseBoxTexture = new Texture(Gdx.files.internal("data/ui/purchaseBox1.png"));
+		purchaseBox = new TextureRegion(purchaseBoxTexture, 0, 0, 213, 99);
 		starCoin = new Texture(Gdx.files.internal("data/ui/starCoin.png"));
 
 		noStars = new Texture(Gdx.files.internal("data/ui/noStars.png"));
@@ -147,7 +152,10 @@ public class AssetLoader {
 		threeStars.dispose();
 		starCoin.dispose();
 		continueBackgroundTexture.dispose();
+		purchaseMenuTexture.dispose();
 		clockTexture.dispose();
+		purchaseBoxTexture.dispose();
+
 		// Sounds
 		soundtrack.dispose();
 		nextlevel.dispose();

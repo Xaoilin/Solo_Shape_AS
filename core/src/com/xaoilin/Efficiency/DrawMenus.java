@@ -32,6 +32,8 @@ import com.xaoilin.SSHelpers.Continue;
 import com.xaoilin.SSHelpers.InputHandler;
 import com.xaoilin.SSHelpers.Memory;
 import com.xaoilin.Screens.GameScreen;
+import com.xaoilin.soloshape.PlatformResolver;
+import com.xaoilin.soloshape.SSGame;
 import com.xaoilin.ui.Item;
 import com.xaoilin.ui.SimpleButton;
 
@@ -65,16 +67,17 @@ public class DrawMenus {
 	static int continueMenuCounter = 0;
 	static int onceColor = 0;
 	double originalShapeColor;
-	public static int coinIncrement = 1;
-	//Game over variables
+	public static int coinIncrement = 10;
+	// Game over variables
 	static int gameOverCounter = 0;
 	static int onceGameOver = 0;
-	
+
 	public static OrthographicCamera cam;
 	private ArrayList<int[]> target;
 	int gameWidth = GameWorld.gameWidth;
 	int gameHeight = GameWorld.gameHeight;
-	private List<SimpleButton> menuButtons, menuBadgesButtons, gameOverButtons, nextLevelButtons,continueButtons;
+	private List<SimpleButton> menuButtons, menuBadgesButtons, gameOverButtons, nextLevelButtons, continueButtons,
+			purchaseButtons;
 	SpriteBatch batcher;
 
 	public DrawMenus(GameWorld world) {
@@ -85,9 +88,8 @@ public class DrawMenus {
 				.getNextLevelButtons();
 		this.menuBadgesButtons = ((InputHandler) GameScreen.inputMultiplexer.getProcessors().peek())
 				.getMenuBadgesButtons();
-		this.continueButtons = ((InputHandler) GameScreen.inputMultiplexer.getProcessors().peek())
-				.getContinueButtons();
-
+		this.continueButtons = ((InputHandler) GameScreen.inputMultiplexer.getProcessors().peek()).getContinueButtons();
+		this.purchaseButtons = ((InputHandler) GameScreen.inputMultiplexer.getProcessors().peek()).getPurchaseButtons();
 		target = myWorld.getStarTarget();
 
 		cam = new OrthographicCamera();
@@ -100,7 +102,7 @@ public class DrawMenus {
 		initScroller();
 
 	}
-	
+
 	private void initAssets() {
 		ssLogo = new Sprite(AssetLoader.ssLogo);
 		ssLogo.flip(false, true);
@@ -121,9 +123,9 @@ public class DrawMenus {
 		assetManager.load("data/scroller/animvs-logo.png", Texture.class);
 		assetManager.load("data/scroller/uiskin.atlas", TextureAtlas.class);
 		assetManager.finishLoading();
-		//Choose font
+		// Choose font
 		LabelStyle blackFont = new LabelStyle(AssetLoader.blackFontStage, Color.BLACK);
-		
+
 		// Loads the ui's skin to be used on this example:
 		uiSkin = new Skin(Gdx.files.internal("data/scroller/uiskin.json"),
 				assetManager.get("data/scroller/uiskin.atlas", TextureAtlas.class));
@@ -134,70 +136,75 @@ public class DrawMenus {
 		for (int i = 0; i < 100; i++) {
 			levelBoxes.put(i, new Item(i, "LevelBox " + i, AssetLoader.levelBox, Color.WHITE, uiSkin));
 		}
-	
 
 		scrollTable = new Table();
-		
-//		scrollTable.add(new Label("Tier 1", blackFont)).padLeft(210);
-//		scrollTable.add(goldStar[0]).prefSize(100).padLeft(0);
-//		scrollTable.add(new Label("1/26", blackFont));
-//		scrollTable.row();
-		
-		//FONTS
+
+		// scrollTable.add(new Label("Tier 1", blackFont)).padLeft(210);
+		// scrollTable.add(goldStar[0]).prefSize(100).padLeft(0);
+		// scrollTable.add(new Label("1/26", blackFont));
+		// scrollTable.row();
+
+		// FONTS
 		Label[] levelLabels = new Label[50];
-		
+
 		for (int i = 0; i < levelLabels.length; i++) {
-			 // make i final here so you can reference it inside
-            // the anonymous class
-            final int index = i; 
-            
+			// make i final here so you can reference it inside
+			// the anonymous class
+			final int index = i;
+
 			levelLabels[i] = new Label(i + 1 + "", blackFont);
-			levelLabels[i].addListener(new ClickListener(){
-				 @Override public void clicked(InputEvent event, float x, float y) {
-	                    // When you click the button it will print this value you assign.
-	                    // That way you will know 'which' button was clicked and can perform
-	                    // the correct action based on it.
-//	                    Gdx.app.log("button", "clicked " + index);  
-	                    if(Memory.getHighestUserLevel() > index){
-	        				LevelFiles.gameLvl = index + 1;
-	        				GameWorld.reset();
-	        				GameWorld.setReady();
-	        			}
-	                };
+			levelLabels[i].addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					// When you click the button it will print this value you
+					// assign.
+					// That way you will know 'which' button was clicked and can
+					// perform
+					// the correct action based on it.
+					// Gdx.app.log("button", "clicked " + index);
+					if (Memory.getHighestUserLevel() > index) {
+						LevelFiles.gameLvl = index + 1;
+						GameWorld.reset();
+						GameWorld.setReady();
+					}
+				};
 			});
 		}
-		
+
 		for (int j = 0; j < LevelFiles.maxLvl; j += 3) {
 			// Level Boxes
 			for (int i = j; i < j + 3; i++) {
-				if(i < LevelFiles.maxLvl){
+				if (i < LevelFiles.maxLvl) {
 					if (i == j)
 						scrollTable.add(levelBoxes.getValueAt(i).getImage()).center().size(200, 300).padBottom(70);
 					if (i == j + 1)
-						scrollTable.add(levelBoxes.getValueAt(i).getImage()).center().size(200, 300).pad(0, 100, 70, 100);
+						scrollTable.add(levelBoxes.getValueAt(i).getImage()).center().size(200, 300).pad(0, 100, 70,
+								100);
 					if (i == j + 2)
 						scrollTable.add(levelBoxes.getValueAt(i).getImage()).center().size(200, 300).padBottom(70);
 				}
 			}
 			scrollTable.row();
 			// Fonts
-			
-			
+
 			for (int i = j; i < j + 3; i++) {
-				if(i < LevelFiles.maxLvl){
-				scrollTable.add(levelLabels[i]).padTop(-450);
+				if (i < LevelFiles.maxLvl) {
+					scrollTable.add(levelLabels[i]).padTop(-450);
 				}
 			}
 			scrollTable.row();
-			Label ex = new Label( 1 + "", blackFont);
-			ex.addListener(new ClickListener(){
-				 @Override public void clicked(InputEvent event, float x, float y) {
-	                    // When you click the button it will print this value you assign.
-	                    // That way you will know 'which' button was clicked and can perform
-	                    // the correct action based on it.
-	                    Gdx.app.log("button", "clicked ");  
+			Label ex = new Label(1 + "", blackFont);
+			ex.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					// When you click the button it will print this value you
+					// assign.
+					// That way you will know 'which' button was clicked and can
+					// perform
+					// the correct action based on it.
+					Gdx.app.log("button", "clicked ");
 
-	                };
+				};
 			});
 			// Stars
 			for (int i = j; i < j + 3; i++) {
@@ -229,8 +236,6 @@ public class DrawMenus {
 		GameScreen.stage.addActor(table);
 	}
 
-
-
 	private void initGameObjects() {
 		myShapes = myWorld.getShapes();
 		helper = new Helper(myWorld);
@@ -240,7 +245,6 @@ public class DrawMenus {
 
 	public void drawMenuTiers() {
 
-
 		batcher.begin();
 		menuBadgesButtons.get(0).draw(batcher); // Back button
 		batcher.end();
@@ -248,14 +252,16 @@ public class DrawMenus {
 
 	public void drawTierOneMenu(int starsTierOne) {
 		int maxUserLevel = Memory.getHighestUserLevel();
-		
+
 		// Draw Number of Stars at top
-//		helper.drawText(starsTierOne + "/" + LevelFiles.maxLvl * 3, gameWidth * 0.25, (gameHeight * 0.07), 0);
-//		helper.drawTexture((gameWidth * 0.1), (gameHeight * 0.06), 0.6, AssetLoader.yesStar);
+		// helper.drawText(starsTierOne + "/" + LevelFiles.maxLvl * 3, gameWidth
+		// * 0.25, (gameHeight * 0.07), 0);
+		// helper.drawTexture((gameWidth * 0.1), (gameHeight * 0.06), 0.6,
+		// AssetLoader.yesStar);
 		// Draw Coins at the top
 		helper.drawTexture((gameWidth * 0.1), (gameHeight * 0.01), 1, AssetLoader.starCoin);
-		helper.drawText(""+Memory.getCoins(), (gameWidth * 0.25), (gameHeight * 0.06), 5);
-	
+		helper.drawText("" + Memory.getCoins(), (gameWidth * 0.25), (gameHeight * 0.06), 5);
+
 		drawMenuTiers();
 
 		for (int i = 0; i < scrollTable.getCells().size; i++) {
@@ -266,7 +272,7 @@ public class DrawMenus {
 			}
 		}
 
-		//Scroll table
+		// Scroll table
 		GameScreen.stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
 		GameScreen.stage.draw();
 	}
@@ -316,7 +322,7 @@ public class DrawMenus {
 	public void drawGameOverUI() {
 
 		helper.drawScore();
-		//Draw Loss Message
+		// Draw Loss Message
 		if (CheckWin.gameOverMessage.startsWith("Not")) {
 			helper.drawText(CheckWin.gameOverMessage, gameWidth * 0.1869, gameHeight * 0.2238, 0);
 		} else if (CheckWin.gameOverMessage.startsWith("Screen")) {
@@ -327,38 +333,68 @@ public class DrawMenus {
 
 		helper.drawText("Target: " + target.get(LevelFiles.gameLvl - 1)[0], gameWidth * 0.1269, gameHeight * 0.8438, 0);
 
-		//Draw all game over buttons
+		// Draw all game over buttons
 		batcher.begin();
 		for (SimpleButton button : gameOverButtons) {
 			button.draw(batcher);
 		}
 		batcher.end();
-		
-		//Game Over Animation
+
+		// Game Over Animation
 		gameOverAnimation();
 	}
-	
-	void gameOverAnimation(){
+
+	void gameOverAnimation() {
 		gameOverCounter++;
-//		System.out.println(myWorld.getScore());
-		if(gameOverCounter == 1){
+		// System.out.println(myWorld.getScore());
+		if (gameOverCounter == 1) {
 			int coinsEarned = myWorld.getScore() / 100;
-//			System.out.println(x);
-//			Memory.setCoins(Memory.getCoins()+coinsEarned);
+			// System.out.println(x);
+			// Memory.setCoins(Memory.getCoins()+coinsEarned);
 		}
+	}
+
+	public void drawPurchaseMenu() {
+		continueClass.drawPurchaseMenu();
+
+		batcher.begin();
+		purchaseButtons.get(0).draw(batcher);
+		purchaseButtons.get(1).draw(batcher);
+		purchaseButtons.get(2).draw(batcher);
+		purchaseButtons.get(3).draw(batcher);
+		batcher.end();
+
+		//purchase button 1
+		helper.drawText("0.99", GameWorld.gameWidth*0.64, GameWorld.gameHeight*0.43, 5);
+		helper.drawText("4.99", GameWorld.gameWidth*0.64, GameWorld.gameHeight*0.53, 5);
+		helper.drawText("9.99", GameWorld.gameWidth*0.64, GameWorld.gameHeight*0.63, 5);
+
+		helper.drawText("OKAY", GameWorld.gameWidth*0.39, GameWorld.gameHeight*0.710, 5);
 	}
 
 	public void drawContinueMenu() {
 		continueClass.drawContinueMenu();
-		if(Continue.continueMenuCounter > 150){
+		if (Continue.continueMenuCounter > 150) {
 			batcher.begin();
 			continueButtons.get(0).draw(batcher); // End game button
 			continueButtons.get(1).draw(batcher); // Play on button
 			batcher.end();
-			//number of coins required to continue level
-			helper.drawText("" + coinIncrement, GameWorld.gameWidth*0.694, GameWorld.gameHeight*0.65625, 6);
+			// number of coins required to continue level
+			double resHeightOne = 0;
+			double resHeightTwo = 0;
+			if (gameHeight == 1728) {
+				// Gdx.app.log("gameheight", "" + gameHeight);
+				resHeightOne = 0.72625;
+				resHeightTwo = 0.699;
+			} else if (gameHeight == 1920) {
+				// Gdx.app.log("gameheight", "" + gameHeight);
+				resHeightOne = 0.65625;
+				resHeightTwo = 0.694;
+			}
+			helper.drawText("" + coinIncrement, GameWorld.gameWidth * resHeightTwo, GameWorld.gameHeight * resHeightOne,
+					6);
 		}
-		
+
 	}
 
 	public void drawContinueAnimation() {
@@ -375,9 +411,9 @@ public class DrawMenus {
 		ssLogo.setBounds((float) (gameWidth * 0.4), (float) (gameHeight * 0.2), 200, 200);
 		ssLogo.rotate(1);
 		ssLogo.draw(batcher);
-		// for (SimpleButton button : menuButtons) {
-		// button.draw(batcher);
-		// }
+		for (SimpleButton button : menuButtons) {
+			button.draw(batcher);
+		}
 		menuButtons.get(0).draw(batcher);
 		if (GameWorld.VOLUME == 1.0f) {
 			menuButtons.get(1).draw(batcher);
@@ -385,65 +421,67 @@ public class DrawMenus {
 			menuButtons.get(2).draw(batcher);
 		}
 		batcher.end();
+
 	}
 
 	public void drawLevelTarget(int level) {
 		switch (level) {
-		case 1:
-			myShapes.setInstructions(true);
-			if (myShapes.getClickCounterInstructions() == 0) {
-				drawLevelUI();
-			} else if (myShapes.getClickCounterInstructions() == 1) {
-				helper.drawInstructions(LevelFiles.gameLvl);
+			case 1:
+				myShapes.setInstructions(true);
+				if (myShapes.getClickCounterInstructions() == 0) {
+					drawLevelUI();
+				} else if (myShapes.getClickCounterInstructions() == 1) {
+					helper.drawInstructions(LevelFiles.gameLvl);
 
-			} else if (myShapes.getClickCounterInstructions() == 2) {
-				helper.drawInstructions(LevelFiles.gameLvl);
+				} else if (myShapes.getClickCounterInstructions() == 2) {
+					helper.drawInstructions(LevelFiles.gameLvl);
 
-			} else if (myShapes.getClickCounterInstructions() > 2) {
-				myShapes.setInstructions(false);
-				myWorld.setRunning();
-				myShapes.setClickCounter(1);
-			}
-			break;
-		case 3:
-			myShapes.setInstructions(true);
-			if (myShapes.getClickCounterInstructions() == 0) {
-				drawLevelUI();
-			} else if (myShapes.getClickCounterInstructions() == 1) {
-				helper.drawInstructions(LevelFiles.gameLvl);
-			} else if (myShapes.getClickCounterInstructions() > 1) {
-				myShapes.setInstructions(false);
-				myWorld.setRunning();
-				myShapes.setClickCounter(1);
-			}
-			break;
-		case 5:
-			myShapes.setInstructions(true);
-			if (myShapes.getClickCounterInstructions() == 0) {
-				drawLevelUI();
-			} else if (myShapes.getClickCounterInstructions() == 1) {
-				helper.drawInstructions(LevelFiles.gameLvl);
-			} else if (myShapes.getClickCounterInstructions() > 1) {
-				myShapes.setInstructions(false);
-				myWorld.setRunning();
-				myShapes.setClickCounter(1);
-			}
-			break;
-		default:
-			if (myShapes.getClickCounterInstructions() <= 0) {
-				drawLevelUI();
-			} else {
-				myWorld.setRunning();
-				myShapes.setClickCounter(1);
-			}
-			break;
+				} else if (myShapes.getClickCounterInstructions() > 2) {
+					myShapes.setInstructions(false);
+					myWorld.setRunning();
+					myShapes.setClickCounter(1);
+				}
+				break;
+			case 3:
+				myShapes.setInstructions(true);
+				if (myShapes.getClickCounterInstructions() == 0) {
+					drawLevelUI();
+				} else if (myShapes.getClickCounterInstructions() == 1) {
+					helper.drawInstructions(LevelFiles.gameLvl);
+				} else if (myShapes.getClickCounterInstructions() > 1) {
+					myShapes.setInstructions(false);
+					myWorld.setRunning();
+					myShapes.setClickCounter(1);
+				}
+				break;
+			case 5:
+				myShapes.setInstructions(true);
+				if (myShapes.getClickCounterInstructions() == 0) {
+					drawLevelUI();
+				} else if (myShapes.getClickCounterInstructions() == 1) {
+					helper.drawInstructions(LevelFiles.gameLvl);
+				} else if (myShapes.getClickCounterInstructions() > 1) {
+					myShapes.setInstructions(false);
+					myWorld.setRunning();
+					myShapes.setClickCounter(1);
+				}
+				break;
+			default:
+				if (myShapes.getClickCounterInstructions() <= 0) {
+					drawLevelUI();
+				} else {
+					myWorld.setRunning();
+					myShapes.setClickCounter(1);
+				}
+				break;
 		}
 	}
 
 	public static void reset() {
-		coinIncrement = 1;
+		coinIncrement = 10;
 		continueCounter = 0; // resets count down
 		continueMenuCounter = 0;
 		onceColor = 0;
 	}
+
 }

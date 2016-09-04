@@ -36,313 +36,322 @@ import com.xaoilin.ui.Item;
 
 public class GameWorld {
 
-	private OrthographicCamera cam;
-	private ShapeRenderer shapeRenderer;
-	private SpriteBatch batcher;
+    private OrthographicCamera cam;
+    private ShapeRenderer shapeRenderer;
+    private SpriteBatch batcher;
 
-	public static int score = 0;
-	public static ArrayList<Integer> scoreArray = new ArrayList<Integer>();
-	private float runTime = 0;
-	public static float VOLUME = 0;
-	public String userLevel = "";
-	private ArrayList<int[]> targetStars = new ArrayList<int[]>();
+    public static int score = 0;
+    public static ArrayList<Integer> scoreArray = new ArrayList<Integer>();
+    private float runTime = 0;
+    public static float VOLUME = 0;
+    public String userLevel = "";
+    private ArrayList<int[]> targetStars = new ArrayList<int[]>();
 
-	public static int gameWidth;
-	public static int gameHeight;
-	public boolean wonLevel;
-	public boolean once = false;
+    public static int gameWidth;
+    public static int gameHeight;
+    public boolean wonLevel;
+    public boolean once = false;
 
-	private LevelFiles myLevelFiles;
-	private static Shapes myShapes;
-	private CheckWin myCheck;
-	private static Helper myHelper;
-	private static GameRenderer myRenderer;
-	private static WinAnimation myWin;
-	private Memory myMemory;
-	private DrawOutlines myOutlines;
+    private LevelFiles myLevelFiles;
+    private static Shapes myShapes;
+    private CheckWin myCheck;
+    private static Helper myHelper;
+    private static GameRenderer myRenderer;
+    private static WinAnimation myWin;
+    private Memory myMemory;
+    private DrawOutlines myOutlines;
 
-	private static GameState currentState;
-	public GameMode gameMode;
+    private static GameState currentState;
+    public GameMode gameMode;
 
-	public enum GameState {
-		MENU, MENU_TIER_SELECTION, TIER_ONE_MENU, TIER_TWO_MENU, READY, RUNNING, GAME_OVER, NEXT_LEVEL, CONTINUE_MENU, CONTINUE_ANIMATION
-	}
+    public enum GameState {
+        MENU, MENU_TIER_SELECTION, TIER_ONE_MENU, TIER_TWO_MENU, READY, RUNNING, GAME_OVER, NEXT_LEVEL, CONTINUE_MENU, CONTINUE_ANIMATION, PURCHASE_MENU
+    }
 
-	public enum GameMode {
-		TIER_ONE, TIER_TWO
-	}
+    public enum GameMode {
+        TIER_ONE, TIER_TWO
+    }
 
-	public GameWorld(int gameWidth, int gameHeight) {
-		currentState = GameState.MENU;
-		GameWorld.gameWidth = gameWidth;
-		GameWorld.gameHeight = gameHeight;
-		myShapes = new Shapes(this);
-		myHelper = new Helper(this);
-		myLevelFiles = new LevelFiles();
-		myWin = new WinAnimation(this);
-		myMemory = new Memory(this);
-		myOutlines = new DrawOutlines(this);
-		// myCheck = new CheckWin(this);
-		initVariables();
-		initTargets();
+    public GameWorld(int gameWidth, int gameHeight) {
+        currentState = GameState.MENU;
+        GameWorld.gameWidth = gameWidth;
+        GameWorld.gameHeight = gameHeight;
+        myShapes = new Shapes(this);
+        myHelper = new Helper(this);
+        myLevelFiles = new LevelFiles();
+        myWin = new WinAnimation(this);
+        myMemory = new Memory(this);
+        myOutlines = new DrawOutlines(this);
+        // myCheck = new CheckWin(this);
+        initVariables();
+        initTargets();
 
-	}
+    }
 
-	private void initVariables() {
-		cam = new OrthographicCamera();
-		cam.setToOrtho(true, GameWorld.gameWidth, GameWorld.gameHeight);
-		batcher = new SpriteBatch();
-		batcher.setProjectionMatrix(cam.combined);
-		shapeRenderer = new ShapeRenderer();
-		shapeRenderer.setProjectionMatrix(cam.combined);
-	
-		if (Memory.getHighestUserLevel() < 1) {
-			Memory.setHighestLevel(1);
-		}
-	}
+    private void initVariables() {
+        cam = new OrthographicCamera();
+        cam.setToOrtho(true, GameWorld.gameWidth, GameWorld.gameHeight);
+        batcher = new SpriteBatch();
+        batcher.setProjectionMatrix(cam.combined);
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(cam.combined);
 
-	// SCORES
-	private void initTargets() {
+        if (Memory.getHighestUserLevel() < 1) {
+            Memory.setHighestLevel(1);
+        }
+    }
 
-		ReadFiles readFiles = new ReadFiles();
-		for (int i = 0; i < LevelFiles.maxLvl; i++) {
-			int[] temp = readFiles.readStarTargets(i + 1);
-			targetStars.add(temp);
-		}
+    // SCORES
+    private void initTargets() {
 
-	}
+        ReadFiles readFiles = new ReadFiles();
+        for (int i = 0; i < LevelFiles.maxLvl; i++) {
+            int[] temp = readFiles.readStarTargets(i + 1);
+            targetStars.add(temp);
+        }
 
-	public void update(float delta) {
+    }
+
+    public void update(float delta) {
 //		System.out.println("Circle: " + myShapes.circleObjects.get(0).radius);
-		runTime += delta;
+        runTime += delta;
 //		System.out.println("Current State: " + getCurrentState());
-		switch (currentState) {
-		case MENU:
-			updateReady(delta);
-			break;
-		case TIER_ONE_MENU:
-		
-			break;
-		case READY:
-			break;
-		case RUNNING:
-			updateRunning(delta);
-			break;
-		case NEXT_LEVEL:
-			// Update High score
-			if (score > Memory.getHighScore(LevelFiles.gameLvl)) {
-				Memory.setHighScore(LevelFiles.gameLvl, score);
-			}
-			break;
-		default:
-			break;
-		}
+        switch (currentState) {
+            case MENU:
+                updateReady(delta);
+                break;
+            case TIER_ONE_MENU:
 
-		//for scroller and buttons to work
-		if(currentState == GameState.TIER_ONE_MENU){
-			Gdx.input.setInputProcessor(GameScreen.inputMultiplexer);
-		}else{
-			Gdx.input.setInputProcessor(GameScreen.inputMultiplexer.getProcessors().peek());
-		}
-		
-	}
+                break;
+            case READY:
+                break;
+            case RUNNING:
+                updateRunning(delta);
+                break;
+            case NEXT_LEVEL:
+                // Update High score
+                if (score > Memory.getHighScore(LevelFiles.gameLvl)) {
+                    Memory.setHighScore(LevelFiles.gameLvl, score);
+                }
+                break;
+            default:
+                break;
+        }
+
+        //for scroller and buttons to work
+        if (currentState == GameState.TIER_ONE_MENU) {
+            Gdx.input.setInputProcessor(GameScreen.inputMultiplexer);
+        } else {
+            Gdx.input.setInputProcessor(GameScreen.inputMultiplexer.getProcessors().peek());
+        }
+
+    }
 
 
-	private void updateReady(float delta) {
-		// shapes.update(runTime);
-	}
+    private void updateReady(float delta) {
+        // shapes.update(runTime);
+    }
 
-	public void updateRunning(float delta) {
+    public void updateRunning(float delta) {
 
-		if (delta > .15f) {
-			delta = .15f;
-		}
+        if (delta > .15f) {
+            delta = .15f;
+        }
 
-		myShapes.update(delta);
+        myShapes.update(delta);
 
-		if (myShapes.isAlive() == false) {
+        if (myShapes.isAlive() == false) {
 
-			myRenderer.prepareTransition(255, 0, 0, .3f); // Flash red for loss
-			AssetLoader.gameover.play(VOLUME);
-			currentState = GameState.CONTINUE_MENU;
+            myRenderer.prepareTransition(255, 0, 0, .3f); // Flash red for loss
+            AssetLoader.gameover.play(VOLUME);
+            currentState = GameState.CONTINUE_MENU;
 //			currentState = GameState.GAME_OVER;
-		}
-	}
+        }
+    }
 
-	public static void reset() {
-		score = 0;
-		myWin.localReset();
-		myShapes.onRestart();
-		myRenderer.resetVariables();
-		myHelper.resetVariables();
-		DrawMenus.reset();
+    public static void reset() {
+        score = 0;
+        myWin.localReset();
+        myShapes.onRestart();
+        myRenderer.resetVariables();
+        myHelper.resetVariables();
+        DrawMenus.reset();
 //		System.out.println("MY WORLD RESET");
-	}
+    }
 
-	public int getScore() {
-		return score;
-	}
+    public int getScore() {
+        return score;
+    }
 
-	public void addScore(int increment) {
-		score += increment;
-	}
+    public void addScore(int increment) {
+        score += increment;
+    }
 
-	public void setGameModeOne() {
-		gameMode = GameMode.TIER_ONE;
-	}
+    public void setGameModeOne() {
+        gameMode = GameMode.TIER_ONE;
+    }
 
-	public void setGameModeTwo() {
-		gameMode = GameMode.TIER_TWO;
-	}
+    public void setGameModeTwo() {
+        gameMode = GameMode.TIER_TWO;
+    }
 
-	public boolean isGameModeOne() {
-		return gameMode == GameMode.TIER_ONE;
-	}
+    public boolean isGameModeOne() {
+        return gameMode == GameMode.TIER_ONE;
+    }
 
-	public boolean isGameModeTwo() {
-		return gameMode == GameMode.TIER_TWO;
-	}
-	
-	public void setGameOver() {
-		currentState = GameState.GAME_OVER;
-	}
+    public boolean isGameModeTwo() {
+        return gameMode == GameMode.TIER_TWO;
+    }
 
-	public void setRunning() {
-		currentState = GameState.RUNNING;
-	}
+    public void setGameOver() {
+        currentState = GameState.GAME_OVER;
+    }
 
-	public static void setMenu() {
-		currentState = GameState.MENU;
-	}
+    public void setRunning() {
+        currentState = GameState.RUNNING;
+    }
 
-	public static void setReady() {
-		currentState = GameState.READY;
-	}
+    public static void setMenu() {
+        currentState = GameState.MENU;
+    }
 
-	public void setNextLevel() {
-		currentState = GameState.NEXT_LEVEL;
+    public static void setReady() {
+        currentState = GameState.READY;
+    }
 
-	}
+    public void setNextLevel() {
+        currentState = GameState.NEXT_LEVEL;
 
-	public void setMenuTierSelection() {
-		currentState = GameState.MENU_TIER_SELECTION;
-	}
+    }
 
-	public void setTierOneMenu() {
-		currentState = GameState.TIER_ONE_MENU;
-	}
+    public void setMenuTierSelection() {
+        currentState = GameState.MENU_TIER_SELECTION;
+    }
 
-	public void setContinueMenu() {
-		currentState = GameState.CONTINUE_MENU;
-	}
-	
-	public void setContinueAnimation() {
-		currentState = GameState.CONTINUE_ANIMATION;
-	}
+    public void setTierOneMenu() {
+        currentState = GameState.TIER_ONE_MENU;
+    }
 
-	public boolean isTierOneMenu() {
-		return currentState == GameState.TIER_ONE_MENU;
-	}
+    public void setContinueMenu() {
+        currentState = GameState.CONTINUE_MENU;
+    }
 
-	public boolean isTierTwoMenu() {
-		return currentState == GameState.TIER_TWO_MENU;
-	}
+    public void setPurchaseMenu() {
+        currentState = GameState.PURCHASE_MENU;
+    }
 
-	public boolean isReady() {
-		return currentState == GameState.READY;
-	}
 
-	public boolean isGameOver() {
+    public void setContinueAnimation() {
+        currentState = GameState.CONTINUE_ANIMATION;
+    }
 
-		return currentState == GameState.GAME_OVER;
-	}
+    public boolean isTierOneMenu() {
+        return currentState == GameState.TIER_ONE_MENU;
+    }
 
-	public boolean isContinueMenu() {
-		return currentState == GameState.CONTINUE_MENU;
-	}
-	
-	public boolean isContinueAnimation() {
-		return currentState == GameState.CONTINUE_ANIMATION;
-	}
+    public boolean isTierTwoMenu() {
+        return currentState == GameState.TIER_TWO_MENU;
+    }
 
-	public boolean isMenu() {
-		return currentState == GameState.MENU;
-	}
+    public boolean isReady() {
+        return currentState == GameState.READY;
+    }
 
-	public boolean isRunning() {
-		return currentState == GameState.RUNNING;
-	}
+    public boolean isGameOver() {
 
-	public boolean isNextLevel() {
-		return currentState == GameState.NEXT_LEVEL;
-	}
+        return currentState == GameState.GAME_OVER;
+    }
 
-	public boolean isMenuTierSelection() {
-		return currentState == GameState.MENU_TIER_SELECTION;
-	}
+    public boolean isContinueMenu() {
+        return currentState == GameState.CONTINUE_MENU;
+    }
 
-	public GameState getCurrentState() {
-		return currentState;
-	}
+    public boolean isPurchaseMenu() {
+        return currentState == GameState.PURCHASE_MENU;
+    }
 
-	public void setCurrentState(GameState currentState) {
-		GameWorld.currentState = currentState;
-	}
+    public boolean isContinueAnimation() {
+        return currentState == GameState.CONTINUE_ANIMATION;
+    }
 
-	public String getUserLevel() {
-		return userLevel;
-	}
+    public boolean isMenu() {
+        return currentState == GameState.MENU;
+    }
 
-	public void setUserLevel(String userLevel) {
-		this.userLevel = userLevel;
-	}
+    public boolean isRunning() {
+        return currentState == GameState.RUNNING;
+    }
 
-	public ArrayList<int[]> getStarTarget() {
-		return targetStars;
-	}
+    public boolean isNextLevel() {
+        return currentState == GameState.NEXT_LEVEL;
+    }
 
-	public WinAnimation getWinAnimation() {
-		return myWin;
-	}
+    public boolean isMenuTierSelection() {
+        return currentState == GameState.MENU_TIER_SELECTION;
+    }
 
-	public LevelFiles getLevelFiles() {
-		return myLevelFiles;
-	}
+    public GameState getCurrentState() {
+        return currentState;
+    }
 
-	public Shapes getShapes() {
-		return myShapes;
-	}
+    public void setCurrentState(GameState currentState) {
+        GameWorld.currentState = currentState;
+    }
 
-	public Helper getHelper() {
-		return myHelper;
-	}
+    public String getUserLevel() {
+        return userLevel;
+    }
 
-	public CheckWin getCheckWin() {
-		return myCheck;
-	}
+    public void setUserLevel(String userLevel) {
+        this.userLevel = userLevel;
+    }
 
-	public GameRenderer getRenderer() {
-		return myRenderer;
-	}
+    public ArrayList<int[]> getStarTarget() {
+        return targetStars;
+    }
 
-	public Memory getMemory() {
-		return myMemory;
-	}
+    public WinAnimation getWinAnimation() {
+        return myWin;
+    }
 
-	public DrawOutlines getOutlines() {
-		return myOutlines;
-	}
+    public LevelFiles getLevelFiles() {
+        return myLevelFiles;
+    }
 
-	public void setRenderer(GameRenderer renderer) {
-		GameWorld.myRenderer = renderer;
-	}
+    public Shapes getShapes() {
+        return myShapes;
+    }
 
-	public ShapeRenderer getShapeRenderer() {
-		return shapeRenderer;
-	}
+    public Helper getHelper() {
+        return myHelper;
+    }
 
-	public SpriteBatch getBatcher() {
-		return batcher;
-	}
+    public CheckWin getCheckWin() {
+        return myCheck;
+    }
+
+    public GameRenderer getRenderer() {
+        return myRenderer;
+    }
+
+    public Memory getMemory() {
+        return myMemory;
+    }
+
+    public DrawOutlines getOutlines() {
+        return myOutlines;
+    }
+
+    public void setRenderer(GameRenderer renderer) {
+        GameWorld.myRenderer = renderer;
+    }
+
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
+    }
+
+    public SpriteBatch getBatcher() {
+        return batcher;
+    }
 
 }

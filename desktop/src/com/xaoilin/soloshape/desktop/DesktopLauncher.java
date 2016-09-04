@@ -19,6 +19,6 @@ public class DesktopLauncher {
 		DesktopResolver res = new DesktopResolver(game);
 		SSGame.setPlatformResolver(res);
 		new LwjglApplication(game, config);
-
+		//test
 	}
 }

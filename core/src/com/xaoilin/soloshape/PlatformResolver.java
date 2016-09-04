@@ -22,7 +22,7 @@ public abstract class PlatformResolver {
         this.purchaseObserver = purchaseObserver;
         this.config = config;
     }
-    //second test comment, delete when found
+
     public void installIAP() {
         // set and install the manager manually
         if (mgr != null) {

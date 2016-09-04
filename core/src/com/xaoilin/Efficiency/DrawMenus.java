@@ -411,9 +411,13 @@ public class DrawMenus {
 		ssLogo.setBounds((float) (gameWidth * 0.4), (float) (gameHeight * 0.2), 200, 200);
 		ssLogo.rotate(1);
 		ssLogo.draw(batcher);
-		for (SimpleButton button : menuButtons) {
-			button.draw(batcher);
-		}
+
+		//Draws every menu button
+//		for (SimpleButton button : menuButtons) {
+//			button.draw(batcher);
+//		}
+
+		//Draws specific menu buttons - Preferred
 		menuButtons.get(0).draw(batcher);
 		if (GameWorld.VOLUME == 1.0f) {
 			menuButtons.get(1).draw(batcher);

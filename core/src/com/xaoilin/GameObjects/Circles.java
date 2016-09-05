@@ -15,7 +15,8 @@ public class Circles {
 	public Circle circleBounds = new Circle();
 	public int onceCircle = 0;
 	public double speed, rotation, color, pulsating;
-	
+	public float singleRotation;
+
 	public void resetVariables(){
 //		System.out.println("CIRCLE RESET VARIABLES");
 		this.rectX = 0;
@@ -30,9 +31,10 @@ public class Circles {
 		this.rectBounds = new Rectangle();
 		this.circleBounds = new Circle();
 		this.radius = 0;
+		this.singleRotation = 0;
 	}
 	
-	public void normalCircle(int x, int y, float w, float h, double rotation, double speed, double color, double puls) {
+	public void normalCircle(int x, int y, float w, float h, double rotation, double speed, double color, double puls, float singleRotation) {
 
 		if (onceCircle == 0) {
 			System.out.println("Draw Circle");

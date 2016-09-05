@@ -26,7 +26,7 @@ public class Shapes {
 	public static Polygon[] polyObstacles = new Polygon[Shapes.OBSTACLES_SIZE];
 	
 	// Array
-	public float type, x, y, width, height, rotation, speed, color, pulsating;
+	public float type, x, y, width, height, rotation, speed, color, pulsating, singleRotation;
 
 	// Shape Objects stored in arrays
 	public ArrayList<Triangle> triangleObjects = new ArrayList<Triangle>();
@@ -110,9 +110,7 @@ public class Shapes {
 	}
 
 	public void update(float delta) {
-
 		readLevel();
-
 		checkLevel();
 	}
 
@@ -153,7 +151,7 @@ public class Shapes {
 						// sets the type x y width height etc.
 						setArrayVariables(levelArray[i][0], levelArray[i][1], levelArray[i][2], levelArray[i][3],
 								levelArray[i][4], levelArray[i][5], levelArray[i][6], levelArray[i][7],
-								levelArray[i][8]);
+								levelArray[i][8], levelArray[i][9]);
 						// adds the CURRENT type x y width to the RELEVANT shape
 						Shortcut((int) type, circleObjects.get(a), squareObjects.get(a), triangleObjects.get(a),
 								fiveStarObjects.get(a), pentagonObjects.get(a), snowflakeObjects.get(a), false);
@@ -174,7 +172,7 @@ public class Shapes {
 
 							setArrayVariables(obstacleArray[i][0], obstacleArray[i][1], obstacleArray[i][2],
 									obstacleArray[i][3], obstacleArray[i][4], obstacleArray[i][5], obstacleArray[i][6],
-									obstacleArray[i][7], obstacleArray[i][8]);
+									obstacleArray[i][7], obstacleArray[i][8], obstacleArray[i][9]);
 
 							Shortcut((int) type, circleObstacles.get(a), squareObstacles.get(a),
 									triangleObstacles.get(a), fiveStarObstacles.get(a), pentagonObstacles.get(a),
@@ -192,13 +190,13 @@ public class Shapes {
 
 		switch (type) {
 		case 1:
-			circ.normalCircle((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating);
+			circ.normalCircle((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			break;
 		case 2:
-			square.drawSquare((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating);
+			square.drawSquare((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			break;
 		case 3:
-			tri.drawTriangle((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating);
+			tri.drawTriangle((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			break;
 		case 4:
 			// square.drawRectangle((int) x, (int) y, (float) width, (float)
@@ -206,15 +204,15 @@ public class Shapes {
 			break;
 		case 5:
 			if (!obstacle)
-				fiveStar.normalStar((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating);
+				fiveStar.normalStar((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			if (obstacle)
-				fiveStar.staticStar((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating);
+				fiveStar.staticStar((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			break;
 		case 6:
-			pentagon.normalPentagon((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating);
+			pentagon.normalPentagon((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			break;
 		case 7:
-			snowflake.snowflake((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating);
+			snowflake.snowflake((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			break;
 		default:
 			Gdx.app.log("Error", "Shapes Class, Shortcut Method");
@@ -273,12 +271,9 @@ public class Shapes {
 		}
 		//For Continue feature
 		GameWorld.scoreArray.add(myWorld.getScore());
-		// for (int i = 0; i < GameWorld.scoreArray.size(); i++) {
-		// System.out.println(i + " score: " + GameWorld.scoreArray.get(i));
-		// }
 	}
 
-	private void setArrayVariables(float aa, float bb, float cc, float dd, float ee, float ff, float gg, float col, float puls) {
+	private void setArrayVariables(float aa, float bb, float cc, float dd, float ee, float ff, float gg, float col, float puls, float r) {
 		type = aa;
 		x = bb;
 		y = cc;
@@ -288,6 +283,7 @@ public class Shapes {
 		speed = gg;
 		color = col;
 		pulsating = puls;
+		singleRotation = r;
 	}
 
 	public void instructions() {

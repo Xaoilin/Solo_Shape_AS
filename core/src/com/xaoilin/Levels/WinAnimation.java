@@ -163,7 +163,7 @@ public class WinAnimation {
 		
 		//Coin Animation
 		
-		if(coinCounter > 100){
+		if(coinCounter > 50){
 			if(coinX > (GameWorld.gameWidth*0.2648)){
 				coinX-=4;
 				if(coinX < GameWorld.gameWidth*0.2648){
@@ -191,7 +191,9 @@ public class WinAnimation {
 			Helper.batch.end();
 			
 			if(onceCoin == 0){
-				AssetLoader.starAchieved.play();
+				if(GameWorld.VOLUME != 0){
+					AssetLoader.starAchieved.play();
+				}
 				Memory.setCoins(Memory.getCoins() + (int) (myWorld.getScore()/50)); 
 				onceCoin++;
 			}

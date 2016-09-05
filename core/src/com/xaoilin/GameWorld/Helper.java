@@ -1,7 +1,5 @@
 package com.xaoilin.GameWorld;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -29,10 +27,10 @@ import com.xaoilin.GameObjects.Shapes;
 import com.xaoilin.GameObjects.Snowflake;
 import com.xaoilin.GameObjects.Square;
 import com.xaoilin.GameObjects.Triangle;
-import com.xaoilin.Levels.LevelDrawing;
 import com.xaoilin.Levels.LevelFiles;
 import com.xaoilin.SSHelpers.AssetLoader;
-import com.xaoilin.SSHelpers.Memory;
+
+import java.util.ArrayList;
 
 public class Helper {
 
@@ -40,11 +38,11 @@ public class Helper {
 	short[] ex;
 	public static Mesh mesh;
 	public static EarClippingTriangulator earclip;
-	
-	
+
+
 	Sprite blackCircles[] = new Sprite[Shapes.SHAPES_SIZE];
 	Sprite whiteCircles[] = new Sprite[Shapes.SHAPES_SIZE];
-	
+
 	Sprite imageSprite;
 	public static SpriteBatch batch;
 	public static ShapeRenderer shapeRenderer;
@@ -81,7 +79,7 @@ public class Helper {
 		cam = new OrthographicCamera();
 		cam.setToOrtho(true, this.gameWidth, this.gameHeight);
 
-	
+
 		earclip = new EarClippingTriangulator();
 		polyBatch = new PolygonSpriteBatch();
 		polyBatch.setProjectionMatrix(cam.combined);
@@ -120,185 +118,231 @@ public class Helper {
 
 		whiteT = new Texture(pix);
 		whiteTexture = new TextureRegion(whiteT);
-		
-		
-	
+
+
+
 	}
 
 	public void drawInstructions(int gameLevel) {
 
 		switch (gameLevel) {
-		case 1:
-			if (myShapes.getClickCounterInstructions() == 1) {
-				drawText("TAP ANYWHERE", (gameWidth * 0.1343), gameHeight * 0.1719, 0);
-				drawText("TO STOP THE", (gameWidth * 0.1537), gameHeight * 0.3281, 0);
-				drawText("SHAPES FROM", (gameWidth * 0.155), (gameHeight * 0.4844), 0);
-				drawText("EXPANDING!", (gameWidth * 0.1911), (gameHeight * 0.6406), 0);
-			} else if (myShapes.getClickCounterInstructions() == 2) {
-				drawText("DON'T LET THE", (gameWidth * 0.0737), (gameHeight * 0.1719), 0);
-				drawText("SHAPES TOUCH", (gameWidth * 0.09556), (gameHeight * 0.3281), 0);
-				drawText("THE EDGE OF", (gameWidth * 0.1228), (gameHeight * 0.4844), 0);
-				drawText("THE SCREEN!", (gameWidth * 0.1330), (gameHeight * 0.6406), 0);
-			}
-			break;
-		case 3:
-			if (myShapes.getClickCounterInstructions() == 1) {
-				drawText("SHAPES CAN", (gameWidth * 0.1524), (gameHeight * 0.2719), 0);
-				drawText("GROW INSIDE", (gameWidth * 0.1330), (gameHeight * 0.4281), 0);
-				drawText("EACH OTHER!", (gameWidth * 0.1430), (gameHeight * 0.5844), 0);
-			}
-			break;
-		case 5:
-			if (myShapes.getClickCounterInstructions() == 1) {
-				drawText("SHAPES CAN", (gameWidth * 0.1624), (gameHeight * 0.2719), 0);
-				drawText("ROTATE TOO!", (gameWidth * 0.1480), (gameHeight * 0.4281), 0);
-				drawText("GOOD LUCK!", (gameWidth * 0.1793), (gameHeight * 0.5844), 0);
-			}
-			break;
-		default:
-			Gdx.app.log("Null", "No Instructions to be drawn");
-			break;
+			case 1:
+				if (myShapes.getClickCounterInstructions() == 1) {
+					drawText("TAP ANYWHERE", (gameWidth * 0.1343), gameHeight * 0.1719, 0);
+					drawText("TO STOP THE", (gameWidth * 0.1537), gameHeight * 0.3281, 0);
+					drawText("SHAPES FROM", (gameWidth * 0.155), (gameHeight * 0.4844), 0);
+					drawText("EXPANDING!", (gameWidth * 0.1911), (gameHeight * 0.6406), 0);
+				} else if (myShapes.getClickCounterInstructions() == 2) {
+					drawText("DON'T LET THE", (gameWidth * 0.0737), (gameHeight * 0.1719), 0);
+					drawText("SHAPES TOUCH", (gameWidth * 0.09556), (gameHeight * 0.3281), 0);
+					drawText("THE EDGE OF", (gameWidth * 0.1228), (gameHeight * 0.4844), 0);
+					drawText("THE SCREEN!", (gameWidth * 0.1330), (gameHeight * 0.6406), 0);
+				}
+				break;
+			case 3:
+				if (myShapes.getClickCounterInstructions() == 1) {
+					drawText("SHAPES CAN", (gameWidth * 0.1524), (gameHeight * 0.2719), 0);
+					drawText("GROW INSIDE", (gameWidth * 0.1330), (gameHeight * 0.4281), 0);
+					drawText("EACH OTHER!", (gameWidth * 0.1430), (gameHeight * 0.5844), 0);
+				}
+				break;
+			case 5:
+				if (myShapes.getClickCounterInstructions() == 1) {
+					drawText("SHAPES CAN", (gameWidth * 0.1624), (gameHeight * 0.2719), 0);
+					drawText("ROTATE TOO!", (gameWidth * 0.1480), (gameHeight * 0.4281), 0);
+					drawText("GOOD LUCK!", (gameWidth * 0.1793), (gameHeight * 0.5844), 0);
+				}
+				break;
+			default:
+				Gdx.app.log("Null", "No Instructions to be drawn");
+				break;
 		}
 
 	}
 
-	public void drawSnowflake(Snowflake snowflake, Polygon[] poly) {
+//	public void drawFourStar(FourStar shape, Polygon[] poly) {
+//		//Draw Image
+//		batch.begin();
+//		batch.draw(AssetLoader.fourStar, shape.rectX, shape.rectY, shape.width, shape.height);
+//		batch.end();
+//
+//		// SET Polygon
+//		poly[shape.id].setVertices(shape.verticesPoly);
+//		if (shape.rotation > 0) {
+//			poly[shape.id].rotate((float) shape.rotation);
+//			poly[shape.id].setOrigin(shape.originX, shape.originY);
+//		}else if(shape.singleRotation > 0){
+//			poly[shape.id].setRotation(shape.singleRotation);
+//			poly[shape.id].setOrigin(shape.originX, shape.originY);
+//		}
+//
+//		// DRAW Polygon with Mesh
+//		shaderProgram.begin();
+//		shaderProgram.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
+//		if (shape.color == 0)
+//			shaderProgram.setAttributef("a_color", 0, 0, 0, 255);
+//		if (shape.color == 1)
+//			shaderProgram.setAttributef("a_color", 255, 255, 255, 255);
+//		if (shape.color == 2)
+//			shaderProgram.setAttributef("a_color", 100, 0, 0, 255);
+//		mesh.setVertices(poly[shape.id].getTransformedVertices());
+//		mesh.setIndices(shape.indices);
+//		mesh.render(shaderProgram, GL20.GL_TRIANGLES);
+//		shaderProgram.end();
+//
+//		// Outline
+//		shapeRenderer.begin(ShapeType.Line);
+//		if (shape.color == 0)
+//			shapeRenderer.setColor(Color.WHITE);
+//		if (shape.color == 1)
+//			shapeRenderer.setColor(Color.BLACK);
+//		shapeRenderer.polygon(poly[shape.id].getTransformedVertices());
+//		shapeRenderer.end();
+//	}
+
+	public void drawSnowflake(Snowflake shape, Polygon[] poly) {
 		// SET Polygon
-		poly[snowflake.id].setVertices(snowflake.verticesPoly);
-		if (snowflake.rotation > 0) {
-			poly[snowflake.id].rotate((float) snowflake.rotation);
-			poly[snowflake.id].setOrigin(snowflake.originX, snowflake.originY);
+		poly[shape.id].setVertices(shape.verticesPoly);
+		if (shape.rotation > 0) {
+			poly[shape.id].rotate((float) shape.rotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
+		}else if(shape.singleRotation > 0){
+			poly[shape.id].setRotation(shape.singleRotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
 		}
 
 		// DRAW Polygon with Mesh
 		shaderProgram.begin();
 		shaderProgram.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
-		if (snowflake.color == 0)
+		if (shape.color == 0)
 			shaderProgram.setAttributef("a_color", 0, 0, 0, 255);
-		if (snowflake.color == 1)
+		if (shape.color == 1)
 			shaderProgram.setAttributef("a_color", 255, 255, 255, 255);
-		if (snowflake.color == 2)
+		if (shape.color == 2)
 			shaderProgram.setAttributef("a_color", 100, 0, 0, 255);
-		mesh.setVertices(poly[snowflake.id].getTransformedVertices());
-		mesh.setIndices(snowflake.indices);
+		mesh.setVertices(poly[shape.id].getTransformedVertices());
+		mesh.setIndices(shape.indices);
 		mesh.render(shaderProgram, GL20.GL_TRIANGLES);
 		shaderProgram.end();
 
 		// Outline
 		shapeRenderer.begin(ShapeType.Line);
-		if (snowflake.color == 0)
+		if (shape.color == 0)
 			shapeRenderer.setColor(Color.WHITE);
-		if (snowflake.color == 1)
+		if (shape.color == 1)
 			shapeRenderer.setColor(Color.BLACK);
-		shapeRenderer.polygon(poly[snowflake.id].getTransformedVertices());
+		shapeRenderer.polygon(poly[shape.id].getTransformedVertices());
 		shapeRenderer.end();
 	}
 
-	public void drawPentagon(Pentagon pentagon, Polygon[] poly) {
-//		System.out.println("Pentagon color: " + pentagon.color);
-		
-		// Image
-		// batch.begin();
-		// pentagonSprite.setBounds(pentagon.rectX, pentagon.rectY,
-		// pentagon.width, pentagon.height);
-		// pentagonSprite.draw(batch);
-		// batch.end();
-		// SET Polygon
-		poly[pentagon.id].setVertices(pentagon.verticesPoly);
-		if (pentagon.rotation > 0) {
-			poly[pentagon.id].rotate((float) pentagon.rotation);
-			poly[pentagon.id].setOrigin(pentagon.originX, pentagon.originY);
+	public void drawPentagon(Pentagon shape, Polygon[] poly) {
+
+		poly[shape.id].setVertices(shape.verticesPoly);
+		if (shape.rotation > 0) {
+			poly[shape.id].rotate((float) shape.rotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
+		}else if(shape.singleRotation > 0){
+			poly[shape.id].setRotation(shape.singleRotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
 		}
 
 		// DRAW Polygon with Mesh
 		shaderProgram.begin();
 		shaderProgram.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
-		if (pentagon.color == 0)
+		if (shape.color == 0)
 			shaderProgram.setAttributef("a_color", 0, 0, 0, 255);
-		if (pentagon.color == 1)
+		if (shape.color == 1)
 			shaderProgram.setAttributef("a_color", 255, 255, 255, 255);
-		if (pentagon.color == 2)
+		if (shape.color == 2)
 			shaderProgram.setAttributef("a_color", 100, 0, 0, 255);
-		mesh.setVertices(poly[pentagon.id].getTransformedVertices());
-		mesh.setIndices(pentagon.indices);
+		mesh.setVertices(poly[shape.id].getTransformedVertices());
+		mesh.setIndices(shape.indices);
 		mesh.render(shaderProgram, GL20.GL_TRIANGLES);
 		shaderProgram.end();
 
 		// Outline
 		shapeRenderer.begin(ShapeType.Line);
-		if (pentagon.color == 0)
+		if (shape.color == 0)
 			shapeRenderer.setColor(Color.WHITE);
-		if (pentagon.color == 1)
+		if (shape.color == 1)
 			shapeRenderer.setColor(Color.BLACK);
-		shapeRenderer.polygon(poly[pentagon.id].getTransformedVertices());
+		shapeRenderer.polygon(poly[shape.id].getTransformedVertices());
 		shapeRenderer.end();
 	}
 
-	public void drawTriangle(Triangle tri, Polygon[] poly) {
+	public void drawTriangle(Triangle shape, Polygon[] poly) {
+
 		// SET Polygon
-		poly[tri.id].setVertices(tri.verticesPoly);
-		if (tri.rotation > 0) {
-			poly[tri.id].rotate((float) tri.rotation);
-			poly[tri.id].setOrigin(tri.originX, tri.originY);
+		poly[shape.id].setVertices(shape.verticesPoly);
+		if (shape.rotation > 0) {
+			poly[shape.id].rotate((float) shape.rotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
+		}else if(shape.singleRotation > 0){
+
+			poly[shape.id].setRotation(shape.singleRotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
 		}
 
 		// DRAW Polygon with Mesh
 		shaderProgram.begin();
 		shaderProgram.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
-		if (tri.color == 0)
+		if (shape.color == 0)
 			shaderProgram.setAttributef("a_color", 0, 0, 0, 255);
-		if (tri.color == 1)
+		if (shape.color == 1)
 			shaderProgram.setAttributef("a_color", 255, 255, 255, 255);
-		if (tri.color == 2)
+		if (shape.color == 2)
 			shaderProgram.setAttributef("a_color", 100, 0, 0, 255);
-		mesh.setVertices(poly[tri.id].getTransformedVertices());
-		mesh.setIndices(tri.indices);
+		mesh.setVertices(poly[shape.id].getTransformedVertices());
+		mesh.setIndices(shape.indices);
 		mesh.render(shaderProgram, GL20.GL_TRIANGLES);
 		shaderProgram.end();
 
 		// DRAW Outline
 		shapeRenderer.begin(ShapeType.Line);
-		if (tri.color == 0)
+		if (shape.color == 0)
 			shapeRenderer.setColor(Color.WHITE);
-		if (tri.color == 1)
+		if (shape.color == 1)
 			shapeRenderer.setColor(Color.BLACK);
-		
-		shapeRenderer.polygon(poly[tri.id].getTransformedVertices());
+
+		shapeRenderer.polygon(poly[shape.id].getTransformedVertices());
 		shapeRenderer.end();
 	}
 
-	public void drawFiveStar(FiveStar star, Polygon[] poly) {
-		poly[star.id].setVertices(new float[20]);
+	public void drawFiveStar(FiveStar shape, Polygon[] poly) {
+		poly[shape.id].setVertices(new float[20]);
 		// SET Polygon
-		poly[star.id].setVertices(star.verticesPoly);
-		if (star.rotation > 0) {
-			poly[star.id].rotate((float) star.rotation);
-			poly[star.id].setOrigin(star.originX, star.originY);
+		poly[shape.id].setVertices(shape.verticesPoly);
+		if (shape.rotation > 0) {
+			poly[shape.id].rotate((float) shape.rotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
+		}else if(shape.singleRotation > 0){
+			poly[shape.id].setRotation(shape.singleRotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
 		}
 
 		// DRAW Polygon with Mesh
 		shaderProgram.begin();
 		shaderProgram.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
-		if (star.color == 0)
+		if (shape.color == 0)
 			shaderProgram.setAttributef("a_color", 0, 0, 0, 255);
-		if (star.color == 1)
+		if (shape.color == 1)
 			shaderProgram.setAttributef("a_color", 255, 255, 255, 255);
-		if (star.color == 2)
+		if (shape.color == 2)
 			shaderProgram.setAttributef("a_color", 255, 0, 0, 255);
-		mesh.setVertices(poly[star.id].getTransformedVertices());
-		mesh.setIndices(star.indices);
+		mesh.setVertices(poly[shape.id].getTransformedVertices());
+		mesh.setIndices(shape.indices);
 		mesh.render(shaderProgram, GL20.GL_TRIANGLES);
 		shaderProgram.end();
 
 		// DRAW Outline
 		shapeRenderer.begin(ShapeType.Line);
-		if (star.color == 0)
+		if (shape.color == 0)
 			shapeRenderer.setColor(Color.WHITE);
-		if (star.color == 1)
+		if (shape.color == 1)
 			shapeRenderer.setColor(Color.BLACK);
-//		if (star.color == 0)
+//		if (shape.color == 0)
 //			shapeRenderer.setColor(Color.RED);
-		shapeRenderer.polygon(poly[star.id].getTransformedVertices());
+		shapeRenderer.polygon(poly[shape.id].getTransformedVertices());
 		shapeRenderer.end();
 	}
 
@@ -334,41 +378,42 @@ public class Helper {
 	}
 
 
-	public void drawSquare(Square square, Polygon[] poly) {
+	public void drawSquare(Square shape, Polygon[] poly) {
 		// SET Polygon
-		poly[square.id].setVertices(square.verticesPoly);
-		if (square.rotation > 0) {
-			poly[square.id].rotate((float) square.rotation);
-			poly[square.id].setOrigin(square.originX, square.originY);
+		poly[shape.id].setVertices(shape.verticesPoly);
+		if (shape.rotation > 0) {
+			poly[shape.id].rotate((float) shape.rotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
+		}else if(shape.singleRotation > 0){
+			poly[shape.id].setRotation(shape.singleRotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
 		}
 
 		// DRAW Polygon with Mesh
 		shaderProgram.begin();
 		shaderProgram.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
-		if (square.color == 0)
+		if (shape.color == 0)
 			shaderProgram.setAttributef("a_color", 0, 0, 0, 255);
-		if (square.color == 1)
+		if (shape.color == 1)
 			shaderProgram.setAttributef("a_color", 255, 255, 255, 255);
-		if (square.color == 2)
+		if (shape.color == 2)
 			shaderProgram.setAttributef("a_color", 100, 0, 0, 255);
-		mesh.setVertices(poly[square.id].getTransformedVertices());
-		mesh.setIndices(square.indices);
+		mesh.setVertices(poly[shape.id].getTransformedVertices());
+		mesh.setIndices(shape.indices);
 		mesh.render(shaderProgram, GL20.GL_TRIANGLES);
 		shaderProgram.end();
 
 		// DRAW Outline
 		shapeRenderer.begin(ShapeType.Line);
-		if (square.color == 0)
+		if (shape.color == 0)
 			shapeRenderer.setColor(Color.WHITE);
-		if (square.color == 1)
+		if (shape.color == 1)
 			shapeRenderer.setColor(Color.BLACK);
-		shapeRenderer.polygon(poly[square.id].getTransformedVertices());
+		shapeRenderer.polygon(poly[shape.id].getTransformedVertices());
 		shapeRenderer.end();
 	}
 
-	public void drawHeart(FiveStar star) {
 
-	}
 
 	public void drawScore() {
 		String score = myWorld.getScore() + "";
@@ -394,7 +439,7 @@ public class Helper {
 			AssetLoader.redFont.setColor(0, 0, 255, 1);
 			AssetLoader.redFont.getData().setScale(3f, -3f);
 			AssetLoader.redFont.draw(batch, text, (int) x - 1, (int) y - 1);
-		
+
 		}else if (colour == 5) {
 			AssetLoader.continueBlackFont.draw(batch, text, (int) x - 1, (int) y - 1);
 		} else if (colour == 6) {
@@ -431,7 +476,7 @@ public class Helper {
 				(float) (texture.getHeight() * scale));
 		batch.end();
 	}
-	
+
 	public void drawTargetStars(ArrayList<int[]> target, double scale) {
 		// 1 Star
 		drawText(target.get(myLevelFiles.getLevel() - 1)[0] + "", (gameWidth * 0.1667), (gameHeight * 0.3142), 0);
@@ -448,13 +493,13 @@ public class Helper {
 		drawTexture((gameWidth * 0.5870), (gameHeight * 0.6962), scale, AssetLoader.yesStar);
 		drawTexture((gameWidth * 0.7370), (gameHeight * 0.6962), scale, AssetLoader.yesStar);
 	}
-	
-	
+
+
 	public void resetVariables() {
 		blackT.dispose();
 		whiteT.dispose();
 		initAssets();
-		
+
 	}
 
 }

@@ -19,6 +19,7 @@ public class FiveStar {
 	public short[] indices = Helper.earclip.computeTriangles(verticesPoly).toArray();
 	public int once = 0, pulsatingCounter = 0, pulsatingOnce = 0;
 	public double speed, rotation, color, pulsating;
+	public float singleRotation;
 	public float originX, originY;
 
 	static AtomicInteger nextId = new AtomicInteger();
@@ -48,9 +49,10 @@ public class FiveStar {
 		this.color = 0;
 		this.pulsating = 0;
 		this.once = 0;
+		this.singleRotation = 0;
 	}
 
-	public void normalStar(int x, int y, float w, float h, double rotation, double s, double color, double puls) {
+	public void normalStar(int x, int y, float w, float h, double rotation, double s, double color, double puls, float singleRotation) {
 
 		if (once == 0) {
 			System.out.println("5 pointed star entered");
@@ -80,7 +82,7 @@ public class FiveStar {
 			this.rotation = rotation;
 			this.color = color;
 			this.pulsating = puls;
-			
+			this.singleRotation = singleRotation;
 			once++;
 		}
 
@@ -210,7 +212,7 @@ public class FiveStar {
 
 	}
 	
-	public void staticStar(int x, int y, float w, float h, double rotation, double s, double color, double puls) {
+	public void staticStar(int x, int y, float w, float h, double rotation, double s, double color, double puls, float singleRotation) {
 
 		if (once == 0) {
 			System.out.println("5 static star entered");
@@ -239,7 +241,8 @@ public class FiveStar {
 			this.rotation = rotation;
 			this.color = color;
 			this.pulsating = puls;
-			
+			this.singleRotation = singleRotation;
+
 			polyStatic();
 			once++;
 		}

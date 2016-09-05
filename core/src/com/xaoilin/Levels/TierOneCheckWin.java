@@ -24,22 +24,22 @@ public class TierOneCheckWin extends CheckWin {
 		CheckWin.gameOverMessage = "Not Enough\n Points!";
 		switch (level) {
 		case 1:
-			level1();
+//			level1();
 			break;
 		case 2:
-			level2();
+//			level2();
 			break;
 		case 3:
-			level3();
+//			level3();
 			break;
 		case 4:
-			level4();
+//			level4();
 			break;
 		case 5:
-			level5();
+//			level5();
 			break;
 		case 6:
-			level6();
+//			level6();
 			break;
 		case 7:
 			level7();

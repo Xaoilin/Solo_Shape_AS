@@ -25,20 +25,12 @@ public class LevelFiles {
 		fileArray = new String[300];
 		fileObstacleArray = new String[300];
 		fileLevelName = "";
-		rowParams = 9;
+		rowParams = 10;
 		obstacleArray = new float[0][0];
 	}
 	
-	// TYPE 1 Circle, 2 Square, 3 Triangle, 4 Rectangle, 5 (5 Star), 6 Pentagon
-	// Paramaters are: "Type, X, Y, Width, Height, Rotation, Speed, Colour, Pulsating"
-	
-//	public void fileRead(int gameLvl){
-//		System.out.println("entered fileread" + gameLvl);
-//		
-//		if(gameLvl >= 1 && gameLvl <= 12){
-//			tierOne.file(gameLvl);
-//		}
-//	}
+	// TYPE 1 Circle, 2 Square, 3 Triangle, 4 Rectangle, 5 (5 Star), 6 Pentagon, 7 Snowflake
+	// Paramaters are: "Type, X, Y, Width, Height, Rotation, Speed, Colour, Pulsating, Single Rotation"
 	
 	private void Level88(String fileRead, String[] fileArray, String[] fileOutlineArray) {
 		int numberOfShapes = 7;

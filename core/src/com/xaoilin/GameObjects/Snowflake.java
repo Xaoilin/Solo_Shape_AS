@@ -16,6 +16,7 @@ public class Snowflake {
 	public short[] indices = Helper.earclip.computeTriangles(verticesPoly).toArray();
 	public int once = 0;
 	public double speed, rotation, color, pulsating;
+	public float singleRotation;
 	public float originX, originY;
 
 	static AtomicInteger nextId = new AtomicInteger();
@@ -39,9 +40,10 @@ public class Snowflake {
 		this.color = 0;
 		this.pulsating = 0;
 		this.once = 0;
+		this.singleRotation = 0;
 	}
 
-	public void snowflake(int x, int y, float w, float h, double rotation, double s, double color, double puls) {
+	public void snowflake(int x, int y, float w, float h, double rotation, double s, double color, double puls, float singleRotation) {
 
 		if (once == 0) {
 			System.out.println("Snowflake entered");
@@ -70,7 +72,8 @@ public class Snowflake {
 			this.rotation = rotation;
 			this.color = color;
 			this.pulsating = puls;
-			
+			this.singleRotation = singleRotation;
+
 			once++;
 		}
 

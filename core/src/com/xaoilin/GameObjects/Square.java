@@ -17,6 +17,7 @@ public class Square {
 	public short[] indices = Helper.earclip.computeTriangles(verticesPoly).toArray();
 
 	public float speed, rotation, color, pulsating;
+	public float singleRotation;
 	public float originX, originY;
 
 	static AtomicInteger nextId = new AtomicInteger();
@@ -43,11 +44,12 @@ public class Square {
 		this.rotation = 0;
 		this.color = 0;
 		this.pulsating = 0;
+		this.singleRotation = 0;
 		this.once = 0;
 		this.rectBounds = new Rectangle();
 	}
 
-	public void drawSquare(float x, float y, float w, float h, float r, float speed, float color, float puls) {
+	public void drawSquare(float x, float y, float w, float h, float r, float speed, float color, float puls, float singleRotation) {
 
 		if (once == 0) {
 			System.out.println("Draw Square");
@@ -70,7 +72,8 @@ public class Square {
 			this.rotation = r;
 			this.color = color;
 			this.pulsating = puls;
-			
+			this.singleRotation = singleRotation;
+
 			once++;
 		}
 

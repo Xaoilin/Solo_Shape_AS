@@ -56,7 +56,7 @@ public class LevelDrawing {
 				helper.drawTriangle(myShapes.triangleObjects.get(order), Shapes.polyShapes);
 				break;
 			case 4:
-//				helper.drawRectangle(myShapes.squareObjects.get(order), Shapes.polyShapes);
+				helper.drawFourStar(myShapes.fourStarObjects.get(order), Shapes.polyShapes);
 				break;
 			case 5:
 				helper.drawFiveStar(myShapes.fiveStarObjects.get(order), Shapes.polyShapes);

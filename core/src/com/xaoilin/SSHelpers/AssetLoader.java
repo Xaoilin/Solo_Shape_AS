@@ -11,8 +11,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
+	//Shapes
+	public static Texture whiteCircle, blackCircle, snowflake, fourStar;
+
 	public static Texture clockTexture, endGameTexture, playOnTexture, ButtonsTexture, BadgesTexture, logoTexture,
-			ssLogo, whiteCircle, blackCircle, snowflake, noStars, oneStar, twoStars, threeStars, starCoin, blackButton,
+			ssLogo, noStars, oneStar, twoStars, threeStars, starCoin, blackButton,
 			transparentButton, continueBackgroundTexture, purchaseMenuTexture, purchaseBoxTexture;
 
 	public static TextureRegion clock, logo, tier1Badge, tier2Badge, tier3Badge, noStar, yesStar, goldStar, menuButton,
@@ -94,8 +97,9 @@ public class AssetLoader {
 		muteButton = new TextureRegion(ButtonsTexture, 0, 279, 202, 190);
 		speakerButton = new TextureRegion(ButtonsTexture, 0, 0, 203, 172);
 
+		//Shapes
 		snowflake = new Texture(Gdx.files.internal("data/shapes/other/snowflake.png"));
-
+		fourStar = new Texture(Gdx.files.internal("data/shapes/other/fourStar.png"));
 		whiteCircle = new Texture(Gdx.files.internal("data/shapes/circles/whiteCircle.png"));
 
 		blackCircle = new Texture(Gdx.files.internal("data/shapes/circles/blackCircle.png"));
@@ -139,22 +143,11 @@ public class AssetLoader {
 
 	public static void dispose() {
 		// We must dispose of the texture when we are finished.
-		ButtonsTexture.dispose();
-		BadgesTexture.dispose();
-		logoTexture.dispose();
-		ssLogo.dispose();
+		//Shapes
 		whiteCircle.dispose();
 		blackCircle.dispose();
 		snowflake.dispose();
-		noStars.dispose();
-		oneStar.dispose();
-		twoStars.dispose();
-		threeStars.dispose();
-		starCoin.dispose();
-		continueBackgroundTexture.dispose();
-		purchaseMenuTexture.dispose();
-		clockTexture.dispose();
-		purchaseBoxTexture.dispose();
+		fourStar.dispose();
 
 		// Sounds
 		soundtrack.dispose();
@@ -170,6 +163,21 @@ public class AssetLoader {
 		continueBlackFont.dispose();
 		continueWhiteFont.dispose();
 		coinFont.dispose();
+
+		//Other
+		noStars.dispose();
+		oneStar.dispose();
+		twoStars.dispose();
+		threeStars.dispose();
+		starCoin.dispose();
+		continueBackgroundTexture.dispose();
+		purchaseMenuTexture.dispose();
+		clockTexture.dispose();
+		purchaseBoxTexture.dispose();
+		ButtonsTexture.dispose();
+		BadgesTexture.dispose();
+		logoTexture.dispose();
+		ssLogo.dispose();
 	}
 
 }

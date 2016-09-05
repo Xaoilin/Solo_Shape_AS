@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.xaoilin.GameObjects.Circles;
 import com.xaoilin.GameObjects.FiveStar;
+import com.xaoilin.GameObjects.FourStar;
 import com.xaoilin.GameObjects.Pentagon;
 import com.xaoilin.GameObjects.Shapes;
 import com.xaoilin.GameObjects.Snowflake;
@@ -160,45 +161,45 @@ public class Helper {
 
 	}
 
-//	public void drawFourStar(FourStar shape, Polygon[] poly) {
-//		//Draw Image
+	public void drawFourStar(FourStar shape, Polygon[] poly) {
+		//Draw Image
 //		batch.begin();
 //		batch.draw(AssetLoader.fourStar, shape.rectX, shape.rectY, shape.width, shape.height);
 //		batch.end();
-//
-//		// SET Polygon
-//		poly[shape.id].setVertices(shape.verticesPoly);
-//		if (shape.rotation > 0) {
-//			poly[shape.id].rotate((float) shape.rotation);
-//			poly[shape.id].setOrigin(shape.originX, shape.originY);
-//		}else if(shape.singleRotation > 0){
-//			poly[shape.id].setRotation(shape.singleRotation);
-//			poly[shape.id].setOrigin(shape.originX, shape.originY);
-//		}
-//
-//		// DRAW Polygon with Mesh
-//		shaderProgram.begin();
-//		shaderProgram.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
-//		if (shape.color == 0)
-//			shaderProgram.setAttributef("a_color", 0, 0, 0, 255);
-//		if (shape.color == 1)
-//			shaderProgram.setAttributef("a_color", 255, 255, 255, 255);
-//		if (shape.color == 2)
-//			shaderProgram.setAttributef("a_color", 100, 0, 0, 255);
-//		mesh.setVertices(poly[shape.id].getTransformedVertices());
-//		mesh.setIndices(shape.indices);
-//		mesh.render(shaderProgram, GL20.GL_TRIANGLES);
-//		shaderProgram.end();
-//
-//		// Outline
-//		shapeRenderer.begin(ShapeType.Line);
-//		if (shape.color == 0)
-//			shapeRenderer.setColor(Color.WHITE);
-//		if (shape.color == 1)
-//			shapeRenderer.setColor(Color.BLACK);
-//		shapeRenderer.polygon(poly[shape.id].getTransformedVertices());
-//		shapeRenderer.end();
-//	}
+
+		// SET Polygon
+		poly[shape.id].setVertices(shape.verticesPoly);
+		if (shape.rotation > 0) {
+			poly[shape.id].rotate((float) shape.rotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
+		}else if(shape.singleRotation > 0){
+			poly[shape.id].setRotation(shape.singleRotation);
+			poly[shape.id].setOrigin(shape.originX, shape.originY);
+		}
+
+		// DRAW Polygon with Mesh
+		shaderProgram.begin();
+		shaderProgram.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
+		if (shape.color == 0)
+			shaderProgram.setAttributef("a_color", 0, 0, 0, 255);
+		if (shape.color == 1)
+			shaderProgram.setAttributef("a_color", 255, 255, 255, 255);
+		if (shape.color == 2)
+			shaderProgram.setAttributef("a_color", 100, 0, 0, 255);
+		mesh.setVertices(poly[shape.id].getTransformedVertices());
+		mesh.setIndices(shape.indices);
+		mesh.render(shaderProgram, GL20.GL_TRIANGLES);
+		shaderProgram.end();
+
+		// Outline
+		shapeRenderer.begin(ShapeType.Line);
+		if (shape.color == 0)
+			shapeRenderer.setColor(Color.WHITE);
+		if (shape.color == 1)
+			shapeRenderer.setColor(Color.BLACK);
+		shapeRenderer.polygon(poly[shape.id].getTransformedVertices());
+		shapeRenderer.end();
+	}
 
 	public void drawSnowflake(Snowflake shape, Polygon[] poly) {
 		// SET Polygon

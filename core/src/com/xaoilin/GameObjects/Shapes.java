@@ -35,6 +35,7 @@ public class Shapes {
 	public ArrayList<Pentagon> pentagonObjects = new ArrayList<Pentagon>();
 	public ArrayList<FiveStar> fiveStarObjects = new ArrayList<FiveStar>();
 	public ArrayList<Snowflake> snowflakeObjects = new ArrayList<Snowflake>();
+	public ArrayList<FourStar> fourStarObjects = new ArrayList<FourStar>();
 
 	// Shape Objects stored in arrays
 	public ArrayList<Triangle> triangleObstacles = new ArrayList<Triangle>();
@@ -43,6 +44,7 @@ public class Shapes {
 	public ArrayList<Pentagon> pentagonObstacles = new ArrayList<Pentagon>();
 	public ArrayList<FiveStar> fiveStarObstacles = new ArrayList<FiveStar>();
 	public ArrayList<Snowflake> snowflakeObstacles = new ArrayList<Snowflake>();
+	public ArrayList<FourStar> fourStarObstacles = new ArrayList<FourStar>();
 
 	// Game Objects
 	private GameWorld myWorld;
@@ -72,6 +74,7 @@ public class Shapes {
 			Pentagon pentagon = new Pentagon();
 			FiveStar fiveStar = new FiveStar();
 			Snowflake snowflake = new Snowflake();
+			FourStar fourStar = new FourStar();
 
 			squareObjects.add(square);
 			circleObjects.add(circle);
@@ -79,6 +82,7 @@ public class Shapes {
 			pentagonObjects.add(pentagon);
 			fiveStarObjects.add(fiveStar);
 			snowflakeObjects.add(snowflake);
+			fourStarObjects.add(fourStar);
 		}
 
 		// Initialize all obstacles
@@ -89,6 +93,7 @@ public class Shapes {
 			Pentagon pentagon = new Pentagon();
 			FiveStar fiveStar = new FiveStar();
 			Snowflake snowflake = new Snowflake();
+			FourStar fourStar = new FourStar();
 
 			squareObstacles.add(square);
 			circleObstacles.add(circle);
@@ -96,6 +101,7 @@ public class Shapes {
 			pentagonObstacles.add(pentagon);
 			fiveStarObstacles.add(fiveStar);
 			snowflakeObstacles.add(snowflake);
+			fourStarObstacles.add(fourStar);
 		}
 		
 		// Populate batch and polygon
@@ -154,7 +160,7 @@ public class Shapes {
 								levelArray[i][8], levelArray[i][9]);
 						// adds the CURRENT type x y width to the RELEVANT shape
 						Shortcut((int) type, circleObjects.get(a), squareObjects.get(a), triangleObjects.get(a),
-								fiveStarObjects.get(a), pentagonObjects.get(a), snowflakeObjects.get(a), false);
+								fiveStarObjects.get(a), pentagonObjects.get(a), snowflakeObjects.get(a), fourStarObjects.get(a), false);
 					}
 				}
 			
@@ -176,7 +182,7 @@ public class Shapes {
 
 							Shortcut((int) type, circleObstacles.get(a), squareObstacles.get(a),
 									triangleObstacles.get(a), fiveStarObstacles.get(a), pentagonObstacles.get(a),
-									snowflakeObstacles.get(a), true);
+									snowflakeObstacles.get(a), fourStarObstacles.get(a), true);
 						}
 					}
 				}
@@ -186,7 +192,7 @@ public class Shapes {
 	}
 
 	private void Shortcut(int type, Circles circ, Square square, Triangle tri, FiveStar fiveStar, Pentagon pentagon,
-			Snowflake snowflake, boolean obstacle) {
+			Snowflake snowflake, FourStar fourStar, boolean obstacle) {
 
 		switch (type) {
 		case 1:
@@ -199,8 +205,7 @@ public class Shapes {
 			tri.drawTriangle((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			break;
 		case 4:
-			// square.drawRectangle((int) x, (int) y, (float) width, (float)
-			// height, rotation, speed, color, pulsating);
+			fourStar.growingShape((int) x, (int) y, (float) width, (float) height, rotation, speed, color, pulsating, singleRotation);
 			break;
 		case 5:
 			if (!obstacle)
@@ -251,6 +256,10 @@ public class Shapes {
 
 		for (Snowflake snowflake : snowflakeObjects) {
 			snowflake.resetVariables();
+		}
+
+		for (FourStar fourStar : fourStarObjects) {
+			fourStar.resetVariables();
 		}
 
 		GameWorld.scoreArray.clear();

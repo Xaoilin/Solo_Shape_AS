@@ -534,7 +534,7 @@ public class TierOneLevelFiles extends LevelFiles {
     private void Level1(String[] fileArray, int gameLvl) {
 
         FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
-        file.writeString("6, " + (gameWidth / 2) + ", " + (gameHeight / 2) * 1 + ", 0, 0, 0, 0.1, 0, 0, 0",false);
+        file.writeString("4, " + (gameWidth / 2) + ", " + (gameHeight / 2) * 1 + ", 0, 0, 0, 0.1, 2, 0, 0",false);
 
 
         fileArray = file.readString().split(", ");

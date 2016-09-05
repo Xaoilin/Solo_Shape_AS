@@ -42,28 +42,28 @@ public class TierOneCheckWin extends CheckWin {
 //			level6();
 			break;
 		case 7:
-			level7();
+//			level7();
 			break;
 		case 8:
-			level8();
+//			level8();
 			break;
 		case 9:
-			level9();
+//			level9();
 			break;
 		case 10:
-			level10();
+//			level10();
 			break;
 		case 11:
-			level11();
+//			level11();
 			break;
 		case 12:
-			level12();
+//			level12();
 			break;
 		case 13:
-			level13();
+//			level13();
 			break;
 		case 14:
-			level14();
+//			level14();
 			break;
 		default:
 			System.out.println("Error in TierOneCheckWin class, checkLevel method");

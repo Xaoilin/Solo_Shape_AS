@@ -86,7 +86,7 @@ public class TierOneLevelFiles extends LevelFiles {
     }
 
     private void Level13(String[] fileArray, int gameLvl) {
-        // TODO Auto-generated method stub
+
         FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
 
         file.writeString("2, " + (gameWidth / 10) * 1 + ", " + (gameHeight / 10) * 2 + ", 0, 0, 0, 0.2, 0, 0, 0\n, "
@@ -117,7 +117,7 @@ public class TierOneLevelFiles extends LevelFiles {
     }
 
     //TIER 1 LEVELS
-    private void Level9(String[] fileArray, int gameLvl) {
+    private void ExLevel9(String[] fileArray, int gameLvl) {
         FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
 
         file.writeString("1, " + (gameWidth / 10) * 5 + ", " + (gameHeight / 10) * 5.5 + ", 0, 0, 0, 0.55, 0, 0, 0\n, "
@@ -151,7 +151,7 @@ public class TierOneLevelFiles extends LevelFiles {
         fileLevelName = file.name();
     }
 
-    private void Level8(String[] fileArray, int gameLvl) {
+    private void ExLevel8(String[] fileArray, int gameLvl) {
         FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
         file.writeString("7, " + (gameWidth / 10) * 1 + ", " + (gameHeight / 10) * 2 + ", 0, 0, 1, 0.3, 0, 0, 0\n, "
                         + "7, "	+ (gameWidth / 10) * 9 + ", " + (gameHeight / 10) * 9 + ", 0, 0, 1, 0.3, 0, 0, 0\n, "
@@ -204,7 +204,7 @@ public class TierOneLevelFiles extends LevelFiles {
         fileLevelName = file.name();
     }
 
-    private void Level10(String[] fileArray, int gameLvl) {
+    private void ExLevel10(String[] fileArray, int gameLvl) {
         FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
 
         file.writeString("2, " + (gameWidth / 10) * 1 + ", " + (gameHeight / 10) * 2 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
@@ -332,9 +332,6 @@ public class TierOneLevelFiles extends LevelFiles {
 
 
     private void Level11(String[] fileArray, int gameLvl) {
-        int numberOfShapes = 27;
-        levelArray = new float[numberOfShapes][rowParams];
-
         FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
 
         file.writeString("2, " + (gameWidth / 10) * 2 + ", " + (gameHeight / 10) * 2 + ", 0, 0, 1, 0.3, 0, 0, 0\n, "
@@ -368,36 +365,15 @@ public class TierOneLevelFiles extends LevelFiles {
 
         fileArray = file.readString().split(", ");
 
+        int numberOfShapes = fileArray.length / rowParams;
+        levelArray = new float[numberOfShapes][rowParams];
         levelArray = createArray(numberOfShapes, fileArray);
-
         fileLevelName = file.name();
 
     }
 
-    private void Level7(String[] fileArray, int gameLvl) {
-        int numberOfShapes = 7;
-        levelArray = new float[numberOfShapes][rowParams];
+    private void Level10(String[] fileArray, int gameLvl) {
 
-        FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
-        file.writeString("5, " + (gameWidth / 4) * 3.15 + ", " + (gameHeight / 4) * 1 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
-                + "5, "+ (gameWidth / 4) * 1 + ", " + (gameHeight / 4) * 3 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
-                + "5, " + (gameWidth / 4) * 1 + ", " + (gameHeight / 4) * 1 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
-                + "5, "	+ (gameWidth / 4) * 3.15 + ", " + (gameHeight / 4) * 3 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
-                + "1, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
-                + "2, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 1, 0.1, 1, 0, 0\n, "
-                + "1, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 1, 0.1, 0, 0, 0\n", false);
-
-
-        fileArray = file.readString().split(", ");
-
-        levelArray = createArray(numberOfShapes, fileArray);
-
-        fileLevelName = file.name();
-    }
-
-    private void Level6(String[] fileArray, int gameLvl) {
-        int numberOfShapes = 13;
-        levelArray = new float[numberOfShapes][rowParams];
 
         FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
         file.writeString("5, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 0, 0.5, 0, 0, 0\n, "
@@ -417,14 +393,158 @@ public class TierOneLevelFiles extends LevelFiles {
 
         fileArray = file.readString().split(", ");
 
+        int numberOfShapes = fileArray.length / rowParams;
+        levelArray = new float[numberOfShapes][rowParams];
         levelArray = createArray(numberOfShapes, fileArray);
-
         fileLevelName = file.name();
     }
 
-    private void ExLevel5( String[] fileArray, int gameLvl) {
-        int numberOfShapes = 2;
+    private void Level9(String[] fileArray, int gameLvl) {
+        FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
+
+        file.writeString("2, " + (gameWidth) * 0.12 + ", " + (gameHeight) * 0.2 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.37 + ", " + (gameHeight) * 0.2 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.62 + ", " + (gameHeight) * 0.2 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.2 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.34 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.48 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.62 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.76 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.90 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.62 + ", " + (gameHeight) * 0.90 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.37 + ", " + (gameHeight) * 0.90 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.90 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.76 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.62 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.48 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.34 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "7, "	+ (gameWidth) * 0.5 + ", " + (gameHeight) * 0.4 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "2, " + (gameWidth) * 0.12 + ", " + (gameHeight) * 0.2 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.37 + ", " + (gameHeight) * 0.2 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.62 + ", " + (gameHeight) * 0.2 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.2 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.34 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.48 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.62 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.76 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.88 + ", " + (gameHeight) * 0.90 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.62 + ", " + (gameHeight) * 0.90 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.37 + ", " + (gameHeight) * 0.90 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.90 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.76 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.62 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.48 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "2, "	+ (gameWidth) * 0.12 + ", " + (gameHeight) * 0.34 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "7, "	+ (gameWidth) * 0.5 + ", " + (gameHeight) * 0.65 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                , false);
+
+
+        fileArray = file.readString().split(", ");
+
+        int numberOfShapes = fileArray.length / rowParams;
         levelArray = new float[numberOfShapes][rowParams];
+        levelArray = createArray(numberOfShapes, fileArray);
+        fileLevelName = file.name();
+    }
+
+    private void Level8(String[] fileArray, int gameLvl) {
+
+
+        FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
+        file.writeString("4, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "1, " + (gameWidth)*0.2 + ", " + (gameHeight / 2) * 1 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "1, " + (gameWidth)*0.83 + ", " + (gameHeight / 2) * 1 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "1, " + (gameWidth / 2) + ", " + (gameHeight) * 0.3	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "1, " + (gameWidth / 2) + ", " + (gameHeight) * 0.7	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "1, " + (gameWidth *0.15) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "1, " + (gameWidth *0.38) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "1, " + (gameWidth *0.61) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "1, " + (gameWidth *0.85) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                        + "4, " + (gameWidth)*0.85 + ", " + (gameHeight) * 0.9 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "4, " + (gameWidth)*0.61 + ", " + (gameHeight) *0.9 + ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "4, " + (gameWidth *0.38) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "4, " + (gameWidth *0.15) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "1, " + (gameWidth *0.5) + ", " + (gameHeight) * 0.5	+ ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "4, " + (gameWidth *0.2) + ", " + (gameHeight) * 0.5	+ ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "4, " + (gameWidth *0.83) + ", " + (gameHeight) * 0.5	+ ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "4, " + (gameWidth *0.5) + ", " + (gameHeight) * 0.3	+ ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "4, " + (gameWidth *0.5) + ", " + (gameHeight) * 0.7	+ ", 0, 0, 0, 0.3, 1, 0, 0\n, "
+                        + "4, " + (gameWidth *0.5) + ", " + (gameHeight) * 0.5	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                , false);
+
+
+        fileArray = file.readString().split(", ");
+
+        int numberOfShapes = fileArray.length / rowParams;
+        levelArray = new float[numberOfShapes][rowParams];
+        levelArray = createArray(numberOfShapes, fileArray);
+        fileLevelName = file.name();
+    }
+
+    private void ExLevel7(String[] fileArray, int gameLvl) {
+
+        FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
+        file.writeString("5, " + (gameWidth / 4) * 3.15 + ", " + (gameHeight / 4) * 1 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
+                + "5, "+ (gameWidth / 4) * 1 + ", " + (gameHeight / 4) * 3 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
+                + "5, " + (gameWidth / 4) * 1 + ", " + (gameHeight / 4) * 1 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
+                + "5, "	+ (gameWidth / 4) * 3.15 + ", " + (gameHeight / 4) * 3 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
+                + "1, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 1, 0.1, 0, 0, 0\n, "
+                + "2, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 1, 0.1, 1, 0, 0\n, "
+                + "1, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 1, 0.1, 0, 0, 0\n", false);
+
+
+        fileArray = file.readString().split(", ");
+
+        int numberOfShapes = fileArray.length / rowParams;
+        levelArray = new float[numberOfShapes][rowParams];
+        levelArray = createArray(numberOfShapes, fileArray);
+        fileLevelName = file.name();
+    }
+
+    private void Level7( String[] fileArray, int gameLvl) {
+
+        FileHandle file = Gdx.files.local("Level"+gameLvl+".txt");
+        file.writeString("2, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 0, 0.9, 0, 0, 0\n, "
+                + "1, " + gameWidth / 2	+ ", " + gameHeight / 2 + ", 0, 0, 0, 0.7, 1, 0, 0\n, "
+                + "3, " + gameWidth / 2 + ", " + (gameHeight / 2) * 0.89 + ", 0, 0, 0, 0.7, 0, 0, 0", false);
+
+
+
+        fileArray = file.readString().split(", ");
+
+        int numberOfShapes = fileArray.length/rowParams;
+        levelArray = new float[numberOfShapes][rowParams];
+        levelArray = createArray(numberOfShapes, fileArray);
+        fileLevelName = file.name();
+    }
+
+    private void Level6(String[] fileArray, int gameLvl) {
+
+
+        FileHandle file = Gdx.files.local("Level" + gameLvl + ".txt");
+        file.writeString("4, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                + "1, " + (gameWidth)*0.2 + ", " + (gameHeight / 2) * 1 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                + "1, " + (gameWidth)*0.83 + ", " + (gameHeight / 2) * 1 + ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                + "1, " + (gameWidth / 2) + ", " + (gameHeight) * 0.3	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                + "1, " + (gameWidth / 2) + ", " + (gameHeight) * 0.7	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                + "1, " + (gameWidth *0.15) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                + "1, " + (gameWidth *0.38) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                + "1, " + (gameWidth *0.61) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                + "1, " + (gameWidth *0.85) + ", " + (gameHeight) * 0.9	+ ", 0, 0, 0, 0.3, 0, 0, 0\n, "
+                , false);
+
+
+        fileArray = file.readString().split(", ");
+
+        int numberOfShapes = fileArray.length / rowParams;
+        levelArray = new float[numberOfShapes][rowParams];
+        levelArray = createArray(numberOfShapes, fileArray);
+        fileLevelName = file.name();
+    }
+
+
+
+    private void ExLevel5( String[] fileArray, int gameLvl) {
 
         FileHandle file = Gdx.files.local("Level"+gameLvl+".txt");
         file.writeString("1, " + (gameWidth / 2) + ", " + (gameHeight / 2) * 1 + ", 0, 0, 1, 1, 0, 0, 0\n, "
@@ -433,8 +553,9 @@ public class TierOneLevelFiles extends LevelFiles {
 
         fileArray = file.readString().split(", ");
 
+        int numberOfShapes = fileArray.length / rowParams;
+        levelArray = new float[numberOfShapes][rowParams];
         levelArray = createArray(numberOfShapes, fileArray);
-
         fileLevelName = file.name();
     }
 
@@ -481,22 +602,7 @@ public class TierOneLevelFiles extends LevelFiles {
         fileLevelName = file.name();
     }
 
-    private void ExLevel3( String[] fileArray, int gameLvl) {
 
-        FileHandle file = Gdx.files.local("Level"+gameLvl+".txt");
-        file.writeString("2, " + gameWidth / 2 + ", " + gameHeight / 2 + ", 0, 0, 0, 0.9, 0, 0, 0\n, "
-                + "1, " + gameWidth / 2	+ ", " + gameHeight / 2 + ", 0, 0, 0, 0.7, 1, 0, 0\n, "
-                + "3, " + gameWidth / 2 + ", " + (gameHeight / 2) * 0.89 + ", 0, 0, 0, 0.7, 0, 0, 0", false);
-
-
-
-        fileArray = file.readString().split(", ");
-
-        int numberOfShapes = fileArray.length/rowParams;
-        levelArray = new float[numberOfShapes][rowParams];
-        levelArray = createArray(numberOfShapes, fileArray);
-        fileLevelName = file.name();
-    }
 
     private void Level3(String[] fileArray, int gameLvl) {
 

@@ -52,7 +52,8 @@ public class CheckWin {
 
 	/**
 	 * If two polygons grow apart from each other, it will return true when they
-	 * collide If poly2 grows inside of poly1, it will return true when they
+	 * collide
+	 * If poly2 grows inside of poly1, it will return true when they
 	 * collide
 	 * 
 	 * @param poly1

@@ -21,7 +21,7 @@ public class LevelFiles {
 	
 	public LevelFiles(){
 		
-		maxLvl = 14;
+		maxLvl = 20;
 		fileArray = new String[300];
 		fileObstacleArray = new String[300];
 		fileLevelName = "";

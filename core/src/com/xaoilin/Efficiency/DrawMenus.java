@@ -430,46 +430,46 @@ public class DrawMenus {
 
 	public void drawLevelTarget(int level) {
 		switch (level) {
-			case 1:
-				myShapes.setInstructions(true);
-				if (myShapes.getClickCounterInstructions() == 0) {
-					drawLevelUI();
-				} else if (myShapes.getClickCounterInstructions() == 1) {
-					helper.drawInstructions(LevelFiles.gameLvl);
-
-				} else if (myShapes.getClickCounterInstructions() == 2) {
-					helper.drawInstructions(LevelFiles.gameLvl);
-
-				} else if (myShapes.getClickCounterInstructions() > 2) {
-					myShapes.setInstructions(false);
-					myWorld.setRunning();
-					myShapes.setClickCounter(1);
-				}
-				break;
-			case 3:
-				myShapes.setInstructions(true);
-				if (myShapes.getClickCounterInstructions() == 0) {
-					drawLevelUI();
-				} else if (myShapes.getClickCounterInstructions() == 1) {
-					helper.drawInstructions(LevelFiles.gameLvl);
-				} else if (myShapes.getClickCounterInstructions() > 1) {
-					myShapes.setInstructions(false);
-					myWorld.setRunning();
-					myShapes.setClickCounter(1);
-				}
-				break;
-			case 5:
-				myShapes.setInstructions(true);
-				if (myShapes.getClickCounterInstructions() == 0) {
-					drawLevelUI();
-				} else if (myShapes.getClickCounterInstructions() == 1) {
-					helper.drawInstructions(LevelFiles.gameLvl);
-				} else if (myShapes.getClickCounterInstructions() > 1) {
-					myShapes.setInstructions(false);
-					myWorld.setRunning();
-					myShapes.setClickCounter(1);
-				}
-				break;
+//			case 1:
+//				myShapes.setInstructions(true);
+//				if (myShapes.getClickCounterInstructions() == 0) {
+//					drawLevelUI();
+//				} else if (myShapes.getClickCounterInstructions() == 1) {
+//					helper.drawInstructions(LevelFiles.gameLvl);
+//
+//				} else if (myShapes.getClickCounterInstructions() == 2) {
+//					helper.drawInstructions(LevelFiles.gameLvl);
+//
+//				} else if (myShapes.getClickCounterInstructions() > 2) {
+//					myShapes.setInstructions(false);
+//					myWorld.setRunning();
+//					myShapes.setClickCounter(1);
+//				}
+//				break;
+//			case 3:
+//				myShapes.setInstructions(true);
+//				if (myShapes.getClickCounterInstructions() == 0) {
+//					drawLevelUI();
+//				} else if (myShapes.getClickCounterInstructions() == 1) {
+//					helper.drawInstructions(LevelFiles.gameLvl);
+//				} else if (myShapes.getClickCounterInstructions() > 1) {
+//					myShapes.setInstructions(false);
+//					myWorld.setRunning();
+//					myShapes.setClickCounter(1);
+//				}
+//				break;
+//			case 5:
+//				myShapes.setInstructions(true);
+//				if (myShapes.getClickCounterInstructions() == 0) {
+//					drawLevelUI();
+//				} else if (myShapes.getClickCounterInstructions() == 1) {
+//					helper.drawInstructions(LevelFiles.gameLvl);
+//				} else if (myShapes.getClickCounterInstructions() > 1) {
+//					myShapes.setInstructions(false);
+//					myWorld.setRunning();
+//					myShapes.setClickCounter(1);
+//				}
+//				break;
 			default:
 				if (myShapes.getClickCounterInstructions() <= 0) {
 					drawLevelUI();

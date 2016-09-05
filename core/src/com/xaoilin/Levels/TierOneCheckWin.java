@@ -12,6 +12,26 @@ public class TierOneCheckWin extends CheckWin {
     // CheckWin.gameOverMessage = "Screen Touched!";
     // CheckWin.gameOverMessage = "Shapes Touched!";
 
+    /* Check if the square in the circle touches the circle
+    // If Polygon growing inside circle use this method
+
+    if (circleOne.contains(squareOne.getTransformedVertices()[0],
+            squareOne.getTransformedVertices()[1]) == false && Shapes.currentShapes == 6) {
+        counter++; // It returns false once before the shape starts
+        // growing abnormally so add a counter to account
+        // for this
+        if (counter > 1) {
+            reset(1);
+        }
+    }
+
+    // Check if the circle in the square touches the square
+    // If Circle growing inside Polygon use this method
+    if (overlapsCircle(squareOne, circleTwo) && Shapes.currentShapes == 7) {
+        reset(1);
+    }
+    */
+
     public int counter = 0;
     public static int continueFromShape = 0;
 
@@ -492,7 +512,7 @@ public class TierOneCheckWin extends CheckWin {
 
     }
 
-    public void level10() {
+    public void Exlevel10() {
         if (Shapes.polyShapes[1].getVertices().length != 0) {
             // if First square hits screen
             if (Shapes.polyShapes[1].getBoundingRectangle().x < 0 && Shapes.currentShapes == 1) {
@@ -618,7 +638,7 @@ public class TierOneCheckWin extends CheckWin {
         }
     }
 
-    public void level9() {
+    public void Exlevel9() {
         Circle circleOne = myShapes.circleObjects.get(0).circleBounds;
         Circle circleTwo = myShapes.circleObjects.get(2).circleBounds;
         Circle circleThree = myShapes.circleObjects.get(4).circleBounds;
@@ -779,7 +799,7 @@ public class TierOneCheckWin extends CheckWin {
         }
     }
 
-    public void level8() {
+    public void Exlevel8() {
         if (Shapes.polyShapes[1].getVertices().length != 0) {
 
             // if any of the polygons touch each other
@@ -1008,7 +1028,7 @@ public class TierOneCheckWin extends CheckWin {
         }
     }
 
-    public void level7() {
+    public void Exlevel7() {
         Polygon starOne = Shapes.polyShapes[1];
         Polygon starTwo = Shapes.polyShapes[2];
         Polygon starThree = Shapes.polyShapes[3];
@@ -1069,7 +1089,7 @@ public class TierOneCheckWin extends CheckWin {
 
     }
 
-    public void level6() {
+    public void Exlevel6() {
         if (Shapes.polyShapes[1].getTransformedVertices().length != 0) {
             if (Shapes.polyShapes[1].getTransformedVertices()[16] < 0) {
                 reset(2);
@@ -1083,6 +1103,506 @@ public class TierOneCheckWin extends CheckWin {
                 }
             }
         }
+    }
+
+    public void level10() {
+
+        if (Shapes.polyShapes[1].getTransformedVertices().length != 0) {
+            switch (Shapes.currentShapes) {
+
+                case 1:
+                    if (Shapes.polyShapes[1].getTransformedVertices()[16] < 0) {
+                        reset(2);
+                        System.out.println("Level 6 failed star touched screen");
+                    }
+                    break;
+
+                case 2:case 3:case 4:case 5:case 6:case 7:case 8:case 9:case 10:case 11:case 12:case 13:
+                    if (overlapsPolygon(Shapes.polyShapes[Shapes.currentShapes], Shapes.polyShapes[Shapes.currentShapes - 1])) {
+                        reset(1);
+                        System.out.println("Level 6 failed + [" + Shapes.currentShapes + "]");
+                    }
+                    break;
+
+
+            }
+        }
+
+    }
+
+    public void level9() {
+
+        if (Shapes.polyShapes[1].getTransformedVertices().length != 0) {
+            switch (Shapes.currentShapes) {
+                case 1:
+                    //Check fourstar doesnt touch edges of screen
+                    if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[0] < 0) {
+                        reset(2);
+                    }
+                    break;
+                case 2:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{1})) {
+                        reset(1);
+                    }
+                    break;
+                case 3:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{2})) {
+                        reset(1);
+                    }
+                    break;
+                case 4:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{3})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[2] > GameWorld.gameWidth){
+                        reset(2);
+                    }
+                    break;
+                case 5:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{4, 3})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[2] > GameWorld.gameWidth){
+                        reset(2);
+                    }
+                    break;
+                case 6:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{5})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[2] > GameWorld.gameWidth){
+                        reset(2);
+                    }
+                    break;
+                case 7:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{6})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[2] > GameWorld.gameWidth){
+                        reset(2);
+                    }
+                    break;
+                case 8:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{7})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[2] > GameWorld.gameWidth){
+                        reset(2);
+                    }
+                    break;
+                case 9:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{8})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[2] > GameWorld.gameWidth){
+                        reset(2);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[5] > GameWorld.gameHeight){
+                        reset(2);
+                    }
+                    break;
+                case 10:
+
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{9,8})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[5] > GameWorld.gameHeight){
+                        reset(2);
+                    }
+                    break;
+                case 11:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{10})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[5] > GameWorld.gameHeight){
+                        reset(2);
+                    }
+                    break;
+                case 12:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{11})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[5] > GameWorld.gameHeight){
+                        reset(2);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[0] < 0){
+                        reset(2);
+                    }
+                    break;
+                case 13:
+
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{12,11})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[0] < 0){
+                        reset(2);
+                    }
+                    break;
+                case 14:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{13})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[0] < 0){
+                        reset(2);
+                    }
+                    break;
+                case 15:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{14})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[0] < 0){
+                        reset(2);
+                    }
+                    break;
+                case 16:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{15, 1})) {
+                        reset(1);
+                    }else if(Shapes.polyShapes[Shapes.currentShapes].getVertices()[0] < 0){
+                        reset(2);
+                    }
+                    break;
+                case 17:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{1,2,3,4,5,6,7,14,15,16})) {
+                        reset(1);
+                    }
+                    break;
+                case 18:case 19:case 20:case 21:case 22:case 23:case 24:case 25:case 26:case 27:case 28:case 29:case 30:case 31:case 33:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{Shapes.currentShapes-17})) {
+                        reset(1);
+                    }
+                    break;
+                case 34:
+                    if (overlapsMultiplePolygons(Shapes.polyShapes[Shapes.currentShapes], new int[]{6,7,8,9,10,11,12,13,14,15, 17})) {
+                        reset(1);
+                    }
+                    break;
+
+            }
+        }
+
+    }
+
+
+    public void level8() {
+        Circle circleOne = myShapes.circleObjects.get(1).circleBounds;
+        Circle circleTwo = myShapes.circleObjects.get(2).circleBounds;
+        Circle circleThree = myShapes.circleObjects.get(3).circleBounds;
+        Circle circleFour = myShapes.circleObjects.get(4).circleBounds;
+        Circle circleFive = myShapes.circleObjects.get(5).circleBounds;
+        Circle circleSix = myShapes.circleObjects.get(6).circleBounds;
+        Circle circleSeven = myShapes.circleObjects.get(7).circleBounds;
+        Circle circleEight = myShapes.circleObjects.get(8).circleBounds;
+
+        if (Shapes.polyShapes[1].getTransformedVertices().length != 0) {
+            switch (Shapes.currentShapes) {
+                case 1:
+                    //Check fourstar doesnt touch edges of screen
+                    if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[2] > GameWorld.gameWidth) {
+                        reset(2);
+                    } else if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[6] > GameWorld.gameWidth) {
+                        reset(2);
+                    } else if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[10] < 0) {
+                        reset(2);
+                    } else if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[14] < 0) {
+                        reset(2);
+                    }
+                    break;
+                case 2:
+
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x) {
+                        reset(2);
+                    } else if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 3:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameWidth - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x)) {
+                        reset(2);
+                    } else if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 4:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x) {
+                        reset(2);
+                    } else if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 5:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x) {
+                        reset(2);
+                    } else if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 6:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameHeight - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.y)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(4).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 7:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameHeight - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.y)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(Shapes.currentShapes - 2).circleBounds)) {
+                        reset(1);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(4).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 8:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameHeight - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.y)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(Shapes.currentShapes - 2).circleBounds)) {
+                        reset(1);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(4).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 9:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameHeight - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.y)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(Shapes.currentShapes - 2).circleBounds)) {
+                        reset(1);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameWidth - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(4).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 10:
+
+                    if (circleEight.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 1) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+                    break;
+                case 11:
+                    if (circleSeven.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 2) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+                    break;
+                case 12:
+
+                    if (circleSix.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 3) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+                    break;
+                case 13:
+
+                    if (circleFive.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 4) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+                    break;
+                case 14:
+                    if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 15:
+
+                    if (circleOne.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 5) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+                    break;
+                case 16:
+
+                    if (circleTwo.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 6) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+                    break;
+                case 17:
+
+                    if (circleThree.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 7) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+                    break;
+                case 18:
+
+                    if (circleFour.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 8) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+                    break;
+                case 19:
+                    if (myShapes.circleObjects.get(13).circleBounds.contains(Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[2],
+                            Shapes.polyShapes[Shapes.currentShapes].getTransformedVertices()[3]) == false) {
+                        counter++; // It returns false once before the shape starts
+                        // growing abnormally so add a counter to account
+                        // for this
+                        if (counter > 9) {
+                            System.out.println("four star hit circle");
+                            reset(1);
+                        }
+                    }
+            }
+        }
+
+    }
+
+    public void level7() {
+        // Bottom left of triangle
+        if (myShapes.circleObjects.get(1).circleBounds.contains(myShapes.triangleObjects.get(2).verticesPoly[4],
+                myShapes.triangleObjects.get(2).verticesPoly[5]) == false && myShapes.getCurrentShapes() == 3) {
+            reset(1);
+        }
+
+        if (myShapes.circleObjects.get(1).circleBounds.contains(myShapes.triangleObjects.get(2).verticesPoly[0],
+                myShapes.triangleObjects.get(2).verticesPoly[1]) == false && myShapes.getCurrentShapes() == 3) {
+            reset(1);
+        }
+
+        // Rectangle Bounds touch screen
+        else if (myShapes.squareObjects.get(0).rectBounds.x < 1) {
+            reset(2);
+        } else if (myShapes.squareObjects.get(0).rectBounds.contains(
+                myShapes.circleObjects.get(1).circleBounds.radius + GameWorld.gameWidth / 2,
+                myShapes.circleObjects.get(1).circleBounds.radius + GameWorld.gameHeight / 2) == false
+                && Shapes.currentShapes == 2) {
+            reset(1);
+        }
+
+    }
+
+    public void level6() {
+//        Circle circleOne = myShapes.circleObjects.get(1).circleBounds;
+//        Circle circleTwo = myShapes.circleObjects.get(2).circleBounds;
+//        Circle circleThree = myShapes.circleObjects.get(3).circleBounds;
+//        Circle circleFour = myShapes.circleObjects.get(4).circleBounds;
+//        Circle circleFive = myShapes.circleObjects.get(4).circleBounds;
+//        Circle circleSix = myShapes.circleObjects.get(4).circleBounds;
+//        Circle circleSeven = myShapes.circleObjects.get(4).circleBounds;
+//        Circle circleEight = myShapes.circleObjects.get(4).circleBounds;
+
+        if (Shapes.polyShapes[1].getTransformedVertices().length != 0) {
+            switch (Shapes.currentShapes) {
+                case 1:
+                    //Check fourstar doesnt touch edges of screen
+                    if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[2] > GameWorld.gameWidth) {
+                        reset(2);
+                    } else if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[6] > GameWorld.gameWidth) {
+                        reset(2);
+                    } else if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[10] < 0) {
+                        reset(2);
+                    } else if (Shapes.polyShapes[Shapes.currentShapes].getVertices()[14] < 0) {
+                        reset(2);
+                    }
+                    break;
+                case 2:
+
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x) {
+                        reset(2);
+                    } else if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 3:
+                    System.out.println("circleBounds = " + myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds);
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameWidth - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x)) {
+                        reset(2);
+                    } else if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 4:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x) {
+                        reset(2);
+                    } else if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 5:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x) {
+                        reset(2);
+                    } else if (overlapsCircle(Shapes.polyShapes[1], myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 6:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameHeight - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.y)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(4).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 7:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameHeight - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.y)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(Shapes.currentShapes - 2).circleBounds)) {
+                        reset(1);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(4).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 8:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameHeight - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.y)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(Shapes.currentShapes - 2).circleBounds)) {
+                        reset(1);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(4).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+                case 9:
+                    if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameHeight - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.y)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(Shapes.currentShapes - 2).circleBounds)) {
+                        reset(1);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.radius > (GameWorld.gameWidth - myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.x)) {
+                        reset(2);
+                    } else if (myShapes.circleObjects.get(Shapes.currentShapes - 1).circleBounds.overlaps(myShapes.circleObjects.get(4).circleBounds)) {
+                        reset(1);
+                    }
+                    break;
+            }
+        }
+
     }
 
     public void Exlevel5() {
@@ -1224,29 +1744,6 @@ public class TierOneCheckWin extends CheckWin {
 
     }
 
-    public void Exlevel3() {
-        // Bottom left of triangle
-        if (myShapes.circleObjects.get(1).circleBounds.contains(myShapes.triangleObjects.get(2).verticesPoly[4],
-                myShapes.triangleObjects.get(2).verticesPoly[5]) == false && myShapes.getCurrentShapes() == 3) {
-            reset(1);
-        }
-
-        if (myShapes.circleObjects.get(1).circleBounds.contains(myShapes.triangleObjects.get(2).verticesPoly[0],
-                myShapes.triangleObjects.get(2).verticesPoly[1]) == false && myShapes.getCurrentShapes() == 3) {
-            reset(1);
-        }
-
-        // Rectangle Bounds touch screen
-        else if (myShapes.squareObjects.get(0).rectBounds.x < 1) {
-            reset(2);
-        } else if (myShapes.squareObjects.get(0).rectBounds.contains(
-                myShapes.circleObjects.get(1).circleBounds.radius + GameWorld.gameWidth / 2,
-                myShapes.circleObjects.get(1).circleBounds.radius + GameWorld.gameHeight / 2) == false
-                && Shapes.currentShapes == 2) {
-            reset(1);
-        }
-
-    }
 
     public void level3() {
 

@@ -83,7 +83,7 @@ public class Snowflake {
 		height += speed * 2;
 
 		poly();
-		// Update Indices once after poly()
+		// Update Indices once after grow()
 		if (once < 10) {
 			indices = Helper.earclip.computeTriangles(verticesPoly).toArray();
 			once++;

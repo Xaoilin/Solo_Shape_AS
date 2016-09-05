@@ -85,7 +85,7 @@ public class Square {
 		height += speed * 2;
 
 		normal();
-		// Update Indices once after poly()
+		// Update Indices once after grow()
 		if (once < 10) {
 			indices = Helper.earclip.computeTriangles(verticesPoly).toArray();
 			once++;

@@ -100,7 +100,7 @@ public class FiveStar {
 		rectY -= speed;
 		width += speed * 2;
 		height += speed * 2;
-		// Update Indices once after poly()
+		// Update Indices once after grow()
 		if (once < 10) {
 			indices = Helper.earclip.computeTriangles(verticesPoly).toArray();
 			once++;
@@ -258,7 +258,7 @@ public class FiveStar {
 //		width += speed * 2;
 //		height += speed * 2;
 		
-		// Update Indices once after poly()
+		// Update Indices once after grow()
 		if (once < 10) {
 			indices = Helper.earclip.computeTriangles(verticesPoly).toArray();
 			once++;

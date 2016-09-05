@@ -67,7 +67,7 @@ public class DrawMenus {
 	static int continueMenuCounter = 0;
 	static int onceColor = 0;
 	double originalShapeColor;
-	public static int coinIncrement = 10;
+	public static int coinIncrement = 1;
 	// Game over variables
 	static int gameOverCounter = 0;
 	static int onceGameOver = 0;
@@ -482,7 +482,7 @@ public class DrawMenus {
 	}
 
 	public static void reset() {
-		coinIncrement = 10;
+		coinIncrement = 1;
 		continueCounter = 0; // resets count down
 		continueMenuCounter = 0;
 		onceColor = 0;

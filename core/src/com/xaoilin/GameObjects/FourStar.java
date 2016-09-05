@@ -15,7 +15,7 @@ public class FourStar {
 	public Rectangle rectBounds = new Rectangle();
 	Random rand;
 
-	// PETNAGON
+	// Four Star
 	int vert = 16; //CHANGE ME FOR EVERY SHAPE
 	public float[] verticesMesh = new float[vert*2];
 	public float[] verticesPoly = new float[vert];
@@ -91,10 +91,10 @@ public class FourStar {
 		width += speed * 2;
 		height += speed * 2;
 
-		poly();
+		grow();
 		// normal();
 
-		// Update Indices once after poly()
+		// Update Indices once after grow()
 		if (once < 10) {
 			indices = Helper.earclip.computeTriangles(verticesPoly).toArray();
 			once++;
@@ -125,7 +125,7 @@ public class FourStar {
 
 	}
 
-	public void poly() {
+	public void grow() {
 		// Top Inner
 		verticesPoly[0] += speed * 0.03; // go left X
 		verticesPoly[1] -= speed * 0.28; // go up Y
